@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import AgentListModel from "../../components/AgentListModel";
 import PageHeader from "../../components/PageHeader";
 
-const AssignWork = (): JSX.Element => {
+const JobQue = (): JSX.Element => {
     return (
         <>
             <AgentListModel />
 
-            <PageHeader pageTitle="Assign Work" />
+            <PageHeader pageTitle="Job Que" />
 
             <div className="row">
                 <div className="col-xl-12">
@@ -26,8 +26,10 @@ const AssignWork = (): JSX.Element => {
                                             <th>#</th>
                                             <th>Customer</th>
                                             <th>Services</th>
+                                            <th>Service Status</th>
                                             <th>Request Status</th>
-                                            <th>Action</th>
+                                            <th className="text-center">Action</th>
+                                            <th className="text-center">View</th>
                                         </tr>
 
                                     </thead>
@@ -38,14 +40,20 @@ const AssignWork = (): JSX.Element => {
                                             </td>
                                             <td>Arthur Henry</td>
                                             <td>Change the Air Filters</td>
+                                            <td>Pending</td>
                                             <td>Accepted</td>
-                                            <td>
+                                            <td className="text-center">
                                                 <Link to="#" className="add_er self mr-3">
                                                     Self
                                                 </Link>
                                                 <Link to="#" data-toggle="modal" data-target="#largeModal_2"
                                                     className="add_er assign">
                                                     Assign
+                                                </Link>
+                                            </td>
+                                            <td className="text-center">
+                                                <Link to="#" className="add_er self">
+                                                    Details
                                                 </Link>
                                             </td>
                                         </tr>
@@ -60,4 +68,4 @@ const AssignWork = (): JSX.Element => {
     );
 };
 
-export default AssignWork;
+export default JobQue;

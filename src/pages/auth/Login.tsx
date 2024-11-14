@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = (): JSX.Element => {
+    const [show, setShow] = useState<boolean>(false);
+
     return (
         <>
             <div className="sec_ton">
@@ -15,9 +18,7 @@ const Login = (): JSX.Element => {
                                             <img src="./assets/images/logo.png" alt="logo" />
                                         </Link>
                                     </div>
-                                    <form action="index.html">
-
-
+                                    <form action="/dashboard">
                                         <h2>Login</h2>
                                         <div className="n_t">
                                             <h4>Email Address</h4>
@@ -25,10 +26,9 @@ const Login = (): JSX.Element => {
                                         </div>
                                         <div className="n_t">
                                             <h4>Password</h4>
-                                            <input className="rt" type="password" name="password" placeholder="Enter your Password" />
-                                            <div className="fa_eye">
-                                                <i className="fa-solid fa-eye"></i>
-                                                {/* <i className="fa-solid fa-eye-slash"></i> */}
+                                            <input className="rt" type={!show ? "password" : "text"} name="password" placeholder="Enter your Password" />
+                                            <div className="fa_eye" onClick={() => setShow(!show)}>
+                                                <i className={!show ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -44,7 +44,7 @@ const Login = (): JSX.Element => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="hj text-center">
-                                                    <p className="dr fe mt-3">Don't have an account? <Link to="sign-up.html">Sign Up</Link></p>
+                                                    <p className="dr fe mt-3">Don't have an account? <Link to="#">Sign Up</Link></p>
                                                 </div>
                                             </div>
                                         </div>

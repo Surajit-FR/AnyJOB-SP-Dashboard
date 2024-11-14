@@ -1,4 +1,28 @@
 import { Link } from "react-router-dom";
+import { RiDashboardLine, RiUserSettingsLine, RiLockLine, RiListOrdered } from "react-icons/ri";
+
+const navLinks = [
+    {
+        path: "/dashboard",
+        icon: <RiDashboardLine className="mx-1" />,
+        label: "Dashboard"
+    },
+    {
+        path: "/field-agents",
+        icon: <RiUserSettingsLine className="mx-1" />,
+        label: "Field Agents"
+    },
+    {
+        path: "/agent-permission",
+        icon: <RiLockLine className="mx-1" />,
+        label: "Agent Permission"
+    },
+    {
+        path: "/job-que",
+        icon: <RiListOrdered className="mx-1" />,
+        label: "Job Que"
+    }
+];
 
 const Navbar = (): JSX.Element => {
     return (
@@ -10,45 +34,23 @@ const Navbar = (): JSX.Element => {
 
                 <div className="left-side-logo d-block d-lg-none">
                     <div className="text-center">
-                        <Link to="/dashboard" className="logo"><img src="assets/images/logo-dark.png" height="20" alt="logo" /></Link>
+                        <Link to="/dashboard" className="logo">
+                            <img src="assets/images/logo-dark.png" height="20" alt="logo" />
+                        </Link>
                     </div>
                 </div>
 
                 <div className="sidebar-inner slimscrollleft" style={{ height: "auto" }}>
-
                     <div id="sidebar-menu">
                         <ul>
-                            <li>
-                                <Link to="/dashboard" className="waves-effect">
-                                    <i className="fa-solid fa-chart-simple"></i>
-                                    <span> Dashboard</span>
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link to="/field-agents" className="waves-effect">
-                                    <i className="fa-solid fa-user-gear"></i>
-                                    <span>Field Agents</span>
-                                </Link>
-                            </li>
-                            {/* <li>
-                                <Link to="job-details.html" className="waves-effect">
-                                    <i className="fa-solid fa-square-poll-horizontal"></i>
-                                    <span>Job Details </span>
-                                </Link>
-                            </li> */}
-                            <li>
-                                <Link to="/agent-permission" className="waves-effect">
-                                    <i className="fa-solid fa-user-lock"></i>
-                                    <span>Agent Permission</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/assign-work" className="waves-effect">
-                                    <i className="fa-solid fa-handshake-angle"></i>
-                                    <span>Assign Work</span>
-                                </Link>
-                            </li>
+                            {navLinks.map((link, index) => (
+                                <li key={index}>
+                                    <Link to={link.path} className="waves-effect">
+                                        {link.icon}
+                                        <span> {link.label}</span>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                     <div className="clearfix"></div>
