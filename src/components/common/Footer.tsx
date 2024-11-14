@@ -1,11 +1,12 @@
 const Footer = (): JSX.Element => {
+    const currentYear = new Date().getFullYear();
+    const startYear = 2024;
+
     return (
-        <>
-            <footer className="footer">
-                © 2018 - 2024 <b>AnyJob</b> <span className="d-none d-sm-inline-block"> - Crafted with <i
-                    className="mdi mdi-heart text-danger"></i> by Ariprodesigns</span>
-            </footer>
-        </>
+        <footer className="footer">
+            © {startYear === currentYear ? currentYear : `${startYear} - ${currentYear}`} <b>AnyJob</b>
+            <span className="d-none d-sm-inline-block"> - Developed by <b>Ariprodesigns</b></span>
+        </footer>
     );
 };
 

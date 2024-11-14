@@ -16,11 +16,11 @@ const AgentListModel = (): JSX.Element => {
                                     <div className="col-md-12">
                                         <ul className="patrick_active1">
                                             <li className="culhane_img">
-                                                <img className="" src="./assets/images/p.webp" alt="" />
+                                                <img className="" src="https://placehold.co/50x50" alt="" />
                                             </li>
                                             <li className="culhane_text" style={{ width: "70%" }}>
                                                 <h4>Patrick Culhane</h4>
-                                                <p className="active">Agent engaged in a task</p>
+                                                <p className="active">Agent not engaged in any task</p>
                                             </li>
                                             <li className="raddio_text">
                                                 <p className="c_radio">
@@ -31,10 +31,10 @@ const AgentListModel = (): JSX.Element => {
                                         </ul>
                                         <ul className="patrick_active1">
                                             <li className="culhane_img">
-                                                <img className="" src="./assets/images/p.webp" alt="" />
+                                                <img className="" src="https://placehold.co/50x50" alt="" />
                                             </li>
                                             <li className="culhane_text" style={{ width: "70%" }}>
-                                                <h4>Patrick Culhane</h4>
+                                                <h4>Ronald Richards</h4>
                                                 <p>Agent engaged in a task</p>
                                             </li>
                                             <li className="raddio_text">
@@ -46,10 +46,25 @@ const AgentListModel = (): JSX.Element => {
                                         </ul>
                                         <ul className="patrick_active1">
                                             <li className="culhane_img">
-                                                <img className="" src="./assets/images/p.webp" alt="" />
+                                                <img className="" src="https://placehold.co/50x50" alt="" />
                                             </li>
                                             <li className="culhane_text" style={{ width: "70%" }}>
-                                                <h4>Patrick Culhane</h4>
+                                                <h4>Robert Fox</h4>
+                                                <p className="active">Agent not engaged in any task</p>
+                                            </li>
+                                            <li className="raddio_text">
+                                                <p className="c_radio">
+                                                    <input className="re_radio" type="radio" id="test3" name="radio-group" />
+                                                    <label htmlFor="test3"></label>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul className="patrick_active1">
+                                            <li className="culhane_img">
+                                                <img className="" src="https://placehold.co/50x50" alt="" />
+                                            </li>
+                                            <li className="culhane_text" style={{ width: "70%" }}>
+                                                <h4>Jacob Jones</h4>
                                                 <p>Agent engaged in a task</p>
                                             </li>
                                             <li className="raddio_text">

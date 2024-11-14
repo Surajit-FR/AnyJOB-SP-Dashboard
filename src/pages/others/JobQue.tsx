@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import AgentListModel from "../../components/AgentListModel";
 import PageHeader from "../../components/PageHeader";
+import JobDetailsModal from "../../components/JobDetailsModal";
 
 const JobQue = (): JSX.Element => {
     return (
         <>
             <AgentListModel />
+
+            <JobDetailsModal />
 
             <PageHeader pageTitle="Job Que" />
 
@@ -36,7 +39,7 @@ const JobQue = (): JSX.Element => {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <img className="p_img" src="./assets/images/p.webp" alt="" />
+                                                <img className="p_img" src="https://placehold.co/50x50" alt="" />
                                             </td>
                                             <td>Arthur Henry</td>
                                             <td>Change the Air Filters</td>
@@ -52,7 +55,7 @@ const JobQue = (): JSX.Element => {
                                                 </Link>
                                             </td>
                                             <td className="text-center">
-                                                <Link to="#" className="add_er self">
+                                                <Link to="#" className="add_er assign" data-toggle="modal" data-target="#job_Details">
                                                     Details
                                                 </Link>
                                             </td>

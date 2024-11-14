@@ -35,7 +35,7 @@ const Navbar = (): JSX.Element => {
                 <div className="left-side-logo d-block d-lg-none">
                     <div className="text-center">
                         <Link to="/dashboard" className="logo">
-                            <img src="assets/images/logo-dark.png" height="20" alt="logo" />
+                            <img src="./assets/images/logo-dark.png" height="20" alt="logo" />
                         </Link>
                     </div>
                 </div>

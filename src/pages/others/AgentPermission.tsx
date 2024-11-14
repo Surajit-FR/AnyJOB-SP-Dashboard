@@ -20,7 +20,7 @@ const AgentPermission = (): JSX.Element => {
                                         <tr>
                                             <th>Name</th>
                                             <th>Add New Aggent</th>
-                                            <th>Accept Request</th>
+                                            <th>Accept Service Request</th>
                                             <th>Assign Job</th>
                                         </tr>
 

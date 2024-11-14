@@ -3443,3 +3443,80 @@ File: Responsive
   margin: 20px 0 0 0;
   display: inline-block;
 }
+
+.job_details_1{
+  max-width:600px;
+  width:100%;
+}
+.add_check{
+  padding: 0 0 20px 0;
+  margin: 0;
+}
+.add_check h4{
+  font-size:16px;
+  color:#4E4D4D;
+  line-height: 20px;
+  font-weight:400;
+  padding: 0 0 5px 0;
+  margin: 0;
+}
+.add_check h5{
+  font-size:18px;
+  color:#4E4D4D;
+  line-height: 20px;
+  font-weight:500;
+  padding: 0 0 0 0;
+  margin: 0;
+}
+.sara_lit{
+  padding: 0;
+  margin: 0;
+}
+.sara_lit li{
+  display: block;
+  background: #efffff;
+  font-size: 16px;
+  color:#3A3A3A;
+  line-height: 18px;
+  border-bottom: 1px solid #efefef;
+  padding:10px;
+  margin: 0;
+}
+.sara_lit li span{
+  width: 28px;
+  display: inline-block;
+}
+.sara_lit_123{
+  padding: 0;
+  margin: 0;
+}
+.sara_lit_123 li{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color:#3A3A3A;
+  line-height: 18px;
+  border-bottom: 1px solid #efefef;
+  padding:10px;
+  margin: 0;
+}
+.sara_lit_123 li span{
+  width: 28px;
+  display: inline-block;
+  margin:0 10px 0 0;
+}
+.k_img{
+  display:flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+.k_img li{
+  padding:0 10px 0 0;
+  margin: 0;
+}
+.k_img li:last-child{ padding: 0; }
+.k_img li img{
+  width:40px;
+  object-fit:cover;
+}

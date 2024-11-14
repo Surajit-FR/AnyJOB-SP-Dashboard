@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom";
 import AddFieldagentModal from "../../components/AddFieldagentModal";
 import PageHeader from "../../components/PageHeader";
+import { useState } from "react";
 
 const FieldAgents = (): JSX.Element => {
+    const [switchBtn, setSwitchBtn] = useState<boolean>(false);
+
+    const toggleTeamLead = () => {
+        if (switchBtn) {
+            alert("Want to remove from Team Lead?");
+            setSwitchBtn(!switchBtn);
+        } else {
+            alert("Want to appoint from Team Lead?");
+            setSwitchBtn(!switchBtn);
+        };
+    };
+
     return (
         <>
             <AddFieldagentModal />
@@ -39,12 +52,15 @@ const FieldAgents = (): JSX.Element => {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <img className="p_img" src="./assets/images/p.webp" alt="" />
+                                                <img className="p_img" src="https://placehold.co/50x50" alt="" />
                                             </td>
                                             <td>Patrick Culhane</td>
                                             <td>mohit@gmail.com </td>
-                                            <td>9831855983</td>
-                                            <td><Link to="#" className="add_er">Appoint TL</Link></td>
+                                            <td>9876543210</td>
+                                            <td>
+                                                {switchBtn ? <Link to="#" className="add_er cancel" onClick={toggleTeamLead}> Remove TL</Link>
+                                                    : <Link to="#" className="add_er" onClick={toggleTeamLead}>Appoint TL</Link>}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

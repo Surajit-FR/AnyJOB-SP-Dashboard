@@ -58,11 +58,11 @@ const Profile = (): JSX.Element => {
                                 <div className="col-md-4">
                                     <div className="profiles_it">
                                         <div className="profiles_img">
-                                            <img src="./assets/images/b1.jpg" alt="" />
+                                            <img src="https://placehold.co/500x300" alt="" />
                                         </div>
                                         <div className="profiles_text">
                                             <div className="bd_ft">
-                                                <img src="./assets/images/p.webp" alt="" />
+                                                <img src="https://placehold.co/170x150" alt="" />
                                             </div>
                                             <div className="d_showd">
                                                 <div className="text-center vg">
@@ -206,22 +206,22 @@ const Profile = (): JSX.Element => {
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="./assets/images/p.webp" alt="" />
+                                                <img src="https://placehold.co/240x220" alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="./assets/images/p.webp" alt="" />
+                                                <img src="https://placehold.co/240x220" alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="./assets/images/p.webp" alt="" />
+                                                <img src="https://placehold.co/240x220" alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="./assets/images/p.webp" alt="" />
+                                                <img src="https://placehold.co/240x220" alt="" />
                                             </div>
                                         </div>
 

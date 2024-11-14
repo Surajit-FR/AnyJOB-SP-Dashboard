@@ -33,7 +33,7 @@ const Topbar = (): JSX.Element => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src="./assets/images/p.webp"
+                                    src="https://placehold.co/50x50"
                                     alt="user"
                                     className="rounded-circle"
                                 />
