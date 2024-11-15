@@ -4,3 +4,40 @@
     color: #6c757d;
     border-color: #ced4da;
 }
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.select-custom {
+    width: 100%;
+    border: 1px solid #ccc;
+    appearance: none;
+    background-color: #fff;
+    font-family: "system-ui", sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.select-custom:hover {
+    border-color: #888;
+}
+
+.select-custom:focus {
+    border-color: #63C1BE;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.select-wrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #888;
+    font-size: 14px;
+}

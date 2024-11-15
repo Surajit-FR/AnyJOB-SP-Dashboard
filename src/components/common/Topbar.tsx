@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { AppDispatch } from "../../store/Store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Topbar = (): JSX.Element => {
     const toggleClasses = () => {
@@ -9,6 +12,18 @@ const Topbar = (): JSX.Element => {
             wrapper.classList.toggle("enlarged");
         }
     };
+
+    const dispatch: AppDispatch = useDispatch();
+    useEffect(() => {
+        dispatch({ type: 'location/fetchLocation' });
+
+        // Optionally, you could set an interval to request location periodically
+        const intervalId = setInterval(() => {
+            dispatch({ type: 'location/fetchLocation' });
+        }, 60000); // Retry every 1 minute
+
+        return () => clearInterval(intervalId); // Cleanup interval on unmount
+    }, [dispatch]);
 
     return (
         <>

@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Index from './pages/Index';
 import Login from './pages/auth/Login';
+import { store } from './store/Store';
+import { Provider } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   { path: '/', element: <Index /> },
@@ -37,7 +40,14 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <RouterProvider router={router} future={{ v7_startTransition: true }} />
+  <Provider store={store}>
+    <RouterProvider router={router} future={{ v7_startTransition: true }} />
+    <Toaster
+      position='top-center'
+      reverseOrder={false}
+      gutter={10}
+    />
+  </Provider>
 );
 
 reportWebVitals();

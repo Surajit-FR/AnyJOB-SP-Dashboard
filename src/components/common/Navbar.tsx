@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
-import { RiDashboardLine, RiUserSettingsLine, RiLockLine, RiListOrdered } from "react-icons/ri";
+import {
+    RiDashboardLine,
+    RiUserSettingsLine,
+    RiLockLine,
+    RiListCheck2,
+    RiArchiveStackLine,
+} from "react-icons/ri";
 
 const navLinks = [
     {
@@ -18,10 +24,15 @@ const navLinks = [
         label: "Agent Permission"
     },
     {
-        path: "/job-que",
-        icon: <RiListOrdered className="mx-1" />,
-        label: "Job Que"
-    }
+        path: "/job-requests",
+        icon: <RiListCheck2 className="mx-1" />,
+        label: "Job Requests"
+    },
+    {
+        path: "/job-queue",
+        icon: <RiArchiveStackLine className="mx-1" />,
+        label: "Job Queue"
+    },
 ];
 
 const Navbar = (): JSX.Element => {

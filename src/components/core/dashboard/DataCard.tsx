@@ -1,9 +1,9 @@
 import { TCardData } from "../../../pages/others/Dashboard";
 
-const DataCard = ({ index, item }: { index: number, item: TCardData }): JSX.Element => {
+const DataCard = ({ item }: { item: TCardData }): JSX.Element => {
     return (
         <>
-            <div key={index} className="col-xl-3 col-md-6">
+            <div className="col-xl-3 col-md-6">
                 <div className="card mini-stat m-b-30">
                     <div className="p-3 bg-primary text-white">
                         <div className="mini-stat-icon">

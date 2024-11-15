@@ -40,7 +40,7 @@ const Dashboard = (): JSX.Element => {
                 {
                     dashboardCardData?.map((item, index) => {
                         return (
-                            <DataCard index={index} item={item} />
+                            <DataCard key={index} item={item} />
                         )
                     })
                 }
@@ -56,7 +56,7 @@ const Dashboard = (): JSX.Element => {
                                 </div>
                                 <div className="col-md-6">
                                     <div className="text-right">
-                                        <Link to="/job-que" className="add_er are_add px-5">View All</Link>
+                                        <Link to="/job-queue" className="add_er are_add px-5">View All</Link>
                                     </div>
                                 </div>
                             </div>

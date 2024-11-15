@@ -1,49 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PageHeader from "../../components/PageHeader";
 import { RiEdit2Line } from 'react-icons/ri';
+import { RootState } from '../../store/Store';
+import { useSelector } from 'react-redux';
 
 const Profile = (): JSX.Element => {
-    // State to track editability for sections
+    const { latitude, longitude, locationError } = useSelector((state: RootState) => state.locationSlice);
+
     const [isPersonalInfoEditable, setPersonalInfoEditable] = useState<boolean>(false);
     const [isAddressInfoEditable, setAddressInfoEditable] = useState<boolean>(false);
     const [isCompanyInfoEditable, setCompanyInfoEditable] = useState<boolean>(false);
-    const [latitude, setLatitude] = useState<number | null>(null);
-    const [longitude, setLongitude] = useState<number | null>(null);
-    const [locationError, setLocationError] = useState<string | null>(null);
 
-    // Functions to toggle edit mode
     const togglePersonalInfoEdit = () => setPersonalInfoEditable(!isPersonalInfoEditable);
     const toggleAddressInfoEdit = () => setAddressInfoEditable(!isAddressInfoEditable);
     const toggleCompanyInfoEdit = () => setCompanyInfoEditable(!isCompanyInfoEditable);
 
-    // Function to handle form save
     const handleSave = () => {
         if (latitude === null || longitude === null) {
             alert("Unable to save. Latitude and longitude must be available.");
             return;
         }
-        // Logic to save the form data
         alert("Form saved successfully.");
     };
-
-    // Request location permissions on component mount
-    useEffect(() => {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLatitude(position.coords.latitude);
-                    setLongitude(position.coords.longitude);
-                    setLocationError(null);
-                },
-                (error) => {
-                    setLocationError("Location permission is required.");
-                    console.error(error);
-                }
-            );
-        } else {
-            setLocationError("Geolocation is not supported by this browser.");
-        }
-    }, []);
 
 
     return (

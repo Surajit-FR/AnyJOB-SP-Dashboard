@@ -1,13 +1,13 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import AgentListModel from "../../components/AgentListModel";
 import PageHeader from "../../components/PageHeader";
 import JobDetailsModal from "../../components/JobDetailsModal";
+import { RootState } from "../../store/Store";
+import { useSelector } from "react-redux";
 
-const JobQue = (): JSX.Element => {
-    const [requestStatusFilter, setRequestStatusFilter] = useState<string>("");
+const JobRequests = (): JSX.Element => {
+    const { latitude, longitude } = useSelector((state: RootState) => state.locationSlice);
 
-    // Sample data for the table
     const jobs = [
         {
             id: 1,
@@ -19,32 +19,13 @@ const JobQue = (): JSX.Element => {
         },
     ];
 
-    // Filter the jobs based on the selected filters
-    const filteredJobs = jobs.filter((job) => requestStatusFilter === "" || job.requestStatus === requestStatusFilter);
+    console.log({ latitude, longitude });
 
     return (
         <>
             <AgentListModel />
             <JobDetailsModal />
-            <PageHeader pageTitle="Job Que" />
-
-            <div className="row mb-3">
-                <div className="col-md-2">
-                    <label htmlFor="requestStatus" style={{ fontFamily: "system-ui" }}>Filter by Service Status</label>
-                    <select
-                        id="requestStatus"
-                        className="form-control"
-                        value={requestStatusFilter}
-                        onChange={(e) => setRequestStatusFilter(e.target.value)}
-                    >
-                        <option value="">All</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled</option>
-                    </select>
-                </div>
-            </div>
+            <PageHeader pageTitle="Job Requests" />
 
             <div className="row">
                 <div className="col-xl-12">
@@ -65,11 +46,10 @@ const JobQue = (): JSX.Element => {
                                             <th>Services</th>
                                             <th>Service Status</th>
                                             <th className="text-center">Action</th>
-                                            <th className="text-center">View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredJobs.map((job) => (
+                                        {jobs.map((job) => (
                                             <tr key={job.id}>
                                                 <td>
                                                     <img className="p_img" src={job.imgSrc} alt="" />
@@ -78,33 +58,20 @@ const JobQue = (): JSX.Element => {
                                                 <td>{job.service}</td>
                                                 <td>{job.serviceStatus}</td>
                                                 <td className="text-center">
-                                                    <Link to="#" className="add_er self mr-3">
-                                                        Self
-                                                    </Link>
-                                                    <Link
-                                                        to="#"
-                                                        data-toggle="modal"
-                                                        data-target="#largeModal_2"
-                                                        className="add_er assign"
-                                                    >
-                                                        Assign
-                                                    </Link>
-                                                </td>
-                                                <td className="text-center">
-                                                    <Link
-                                                        to="#"
-                                                        className="add_er assign"
+                                                    <Link to="#"
+                                                        className="add_er self mr-3"
                                                         data-toggle="modal"
                                                         data-target="#job_Details"
                                                     >
-                                                        Details
+                                                        Job Details
                                                     </Link>
+                                                    <Link to="#" className="add_er assign">Accept</Link>
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                                {filteredJobs.length === 0 && (
+                                {jobs.length === 0 && (
                                     <p className="text-center mt-3">No jobs match the selected filters.</p>
                                 )}
                             </div>
@@ -116,4 +83,4 @@ const JobQue = (): JSX.Element => {
     );
 };
 
-export default JobQue;
+export default JobRequests;
