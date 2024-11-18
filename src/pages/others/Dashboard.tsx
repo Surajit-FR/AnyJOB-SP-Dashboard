@@ -23,7 +23,7 @@ const Dashboard = (): JSX.Element => {
         {
             title: "Pending Work",
             icon: "fa-regular fa-hourglass-half",
-            value: "14.5",
+            value: "15",
         },
         {
             title: "Ongoing Work",

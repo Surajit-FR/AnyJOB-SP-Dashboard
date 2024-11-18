@@ -7,22 +7,57 @@ import { useSelector } from 'react-redux';
 const Profile = (): JSX.Element => {
     const { latitude, longitude, locationError } = useSelector((state: RootState) => state.locationSlice);
 
+    const initialState = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        address: '',
+        zipCode: '',
+        companyInfo: ''
+    };
+
     const [isPersonalInfoEditable, setPersonalInfoEditable] = useState<boolean>(false);
     const [isAddressInfoEditable, setAddressInfoEditable] = useState<boolean>(false);
     const [isCompanyInfoEditable, setCompanyInfoEditable] = useState<boolean>(false);
+    const [isFormChanged, setFormChanged] = useState<boolean>(false);
+    const [formData, setFormData] = useState(initialState);
 
-    const togglePersonalInfoEdit = () => setPersonalInfoEditable(!isPersonalInfoEditable);
-    const toggleAddressInfoEdit = () => setAddressInfoEditable(!isAddressInfoEditable);
-    const toggleCompanyInfoEdit = () => setCompanyInfoEditable(!isCompanyInfoEditable);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormChanged(true);
+    };
 
     const handleSave = () => {
         if (latitude === null || longitude === null) {
             alert("Unable to save. Latitude and longitude must be available.");
             return;
         }
+
+        setFormData(initialState);
+        setFormChanged(false);
+        setPersonalInfoEditable(false);
+        setAddressInfoEditable(false);
+        setCompanyInfoEditable(false);
+
         alert("Form saved successfully.");
     };
 
+    const togglePersonalInfoEdit = () => {
+        setPersonalInfoEditable(!isPersonalInfoEditable);
+        setFormChanged(true);
+    };
+
+    const toggleAddressInfoEdit = () => {
+        setAddressInfoEditable(!isAddressInfoEditable);
+        setFormChanged(true);
+    };
+
+    const toggleCompanyInfoEdit = () => {
+        setCompanyInfoEditable(!isCompanyInfoEditable);
+        setFormChanged(true);
+    };
 
     return (
         <>
@@ -80,9 +115,11 @@ const Profile = (): JSX.Element => {
                                                 <input
                                                     className={`rt ${!isPersonalInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
-                                                    name="text"
+                                                    name="firstName"
+                                                    value={formData.firstName}
                                                     placeholder={`${isPersonalInfoEditable ? 'Enter your first name' : ''}`}
                                                     readOnly={!isPersonalInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -92,9 +129,11 @@ const Profile = (): JSX.Element => {
                                                 <input
                                                     className={`rt ${!isPersonalInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
-                                                    name="text"
+                                                    name="lastName"
+                                                    value={formData.lastName}
                                                     placeholder={`${isPersonalInfoEditable ? 'Enter your last name' : ''}`}
                                                     readOnly={!isPersonalInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -104,9 +143,11 @@ const Profile = (): JSX.Element => {
                                                 <input
                                                     className={`rt ${!isPersonalInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
-                                                    name="text"
+                                                    name="email"
+                                                    value={formData.email}
                                                     placeholder={`${isPersonalInfoEditable ? 'Enter your email address' : ''}`}
                                                     readOnly={!isPersonalInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -116,9 +157,11 @@ const Profile = (): JSX.Element => {
                                                 <input
                                                     className={`rt ${!isPersonalInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
-                                                    name="text"
+                                                    name="phone"
+                                                    value={formData.phone}
                                                     placeholder={`${isPersonalInfoEditable ? 'Enter your phone number' : ''}`}
                                                     readOnly={!isPersonalInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -135,9 +178,11 @@ const Profile = (): JSX.Element => {
                                                 <input
                                                     className={`rt ${!isAddressInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
-                                                    name="text"
+                                                    name="address"
+                                                    value={formData.address}
                                                     placeholder={`${isAddressInfoEditable ? 'Enter address' : ''}`}
                                                     readOnly={!isAddressInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -148,8 +193,10 @@ const Profile = (): JSX.Element => {
                                                     className={`rt ${!isAddressInfoEditable ? 'disabled' : ''}`}
                                                     type="text"
                                                     name="zipCode"
+                                                    value={formData.zipCode}
                                                     placeholder={`${isAddressInfoEditable ? 'Enter your zip code' : ''}`}
                                                     readOnly={!isAddressInfoEditable}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -170,15 +217,18 @@ const Profile = (): JSX.Element => {
                                         <div className="col-md-12">
                                             <div className="n_t">
                                                 <h4>Info</h4>
-                                                {/* something_1 */}
                                                 <textarea
                                                     className={`rt something_1 ${!isCompanyInfoEditable ? 'disabled' : ''}`}
+                                                    name="companyInfo"
+                                                    value={formData.companyInfo}
                                                     placeholder={`${isCompanyInfoEditable ? 'Write something...' : ''}`}
                                                     readOnly={!isCompanyInfoEditable}
+                                                    onChange={handleInputChange}
                                                 ></textarea>
                                             </div>
                                         </div>
 
+                                        {/* Documents Section */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Documents</h3>
                                         </div>
@@ -203,15 +253,17 @@ const Profile = (): JSX.Element => {
                                             </div>
                                         </div>
 
+                                        {/* Save Button */}
                                         <div className="col-md-12">
-                                            <button type="submit" className="save_rt" onClick={handleSave}>
-                                                <i className="ri-save-line"></i> Save
-                                            </button>
+                                            {isFormChanged && (
+                                                <button type="button" className="save_rt" onClick={handleSave}>
+                                                    <i className="ri-save-line"></i> Save
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

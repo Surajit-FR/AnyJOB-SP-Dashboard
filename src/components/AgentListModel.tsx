@@ -69,8 +69,8 @@ const AgentListModel = (): JSX.Element => {
                                             </li>
                                             <li className="raddio_text">
                                                 <p className="c_radio">
-                                                    <input className="re_radio" type="radio" id="test3" name="radio-group" />
-                                                    <label htmlFor="test3"></label>
+                                                    <input className="re_radio" type="radio" id="test4" name="radio-group" />
+                                                    <label htmlFor="test4"></label>
                                                 </p>
                                             </li>
                                         </ul>
