@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store/Store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { AuthLogoutRequest } from "../../store/reducers/AuthReducers";
 
 const Topbar = (): JSX.Element => {
     const toggleClasses = () => {
@@ -14,6 +15,12 @@ const Topbar = (): JSX.Element => {
     };
 
     const dispatch: AppDispatch = useDispatch();
+    const navigate: NavigateFunction = useNavigate();
+
+    const userLogout = () => {
+        dispatch(AuthLogoutRequest({ navigate }));
+    };
+
     useEffect(() => {
         dispatch({ type: 'location/fetchLocation' });
 
@@ -60,7 +67,7 @@ const Topbar = (): JSX.Element => {
                                 <Link className="dropdown-item" to="/profile">
                                     <i className="fa fa-pencil-square-o text-muted"></i> Edit Profile
                                 </Link>
-                                <Link className="dropdown-item" to="/login">
+                                <Link className="dropdown-item" to="#" onClick={userLogout}>
                                     <i className="mdi mdi-logout m-r-5 text-muted"></i> Logout
                                 </Link>
                             </div>

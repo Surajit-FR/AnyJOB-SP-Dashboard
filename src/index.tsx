@@ -8,20 +8,26 @@ import Login from './pages/auth/Login';
 import { store } from './store/Store';
 import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
+import PublicRouteAccess from './routes/PublicRouteAccess';
+import PrivateOne from './routes/private/PrivateOne';
 
 const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   {
     path: '*', element: (
       <>
-        <App />
+        <PrivateOne>
+          <App />
+        </PrivateOne>
       </>
     ),
   },
   {
     path: '/login', element: (
       <>
-        <Login />
+        <PublicRouteAccess>
+          <Login />
+        </PublicRouteAccess>
       </>
     ),
   },
