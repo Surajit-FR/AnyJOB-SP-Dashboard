@@ -8,7 +8,7 @@ import { AuthLoginRequest } from "../../store/reducers/AuthReducers";
 interface LoginFormValues {
     email: string;
     password: string;
-    userType: string;
+    userType: Array<string>;
 }
 
 const Login = (): JSX.Element => {
@@ -19,7 +19,7 @@ const Login = (): JSX.Element => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
 
     const onSubmit = (values: LoginFormValues) => {
-        const data = { ...values, userType: "ServiceProvider" }
+        const data = { ...values, userType: ["ServiceProvider", "TeamLead"] }
         dispatch(AuthLoginRequest({ data, navigate }));
     };
 
