@@ -1,5 +1,6 @@
 import { CallEffect, PutEffect, SelectEffect, TakeEffect } from "redux-saga/effects";
 import { User, UserData } from "./authTypes";
+import { ServiceRequest } from "./services";
 
 export type MenuItems = {
     title?: string;
@@ -13,6 +14,8 @@ export type MenuItems = {
 export type DataState = {
     authData?: Partial<UserData>,
     userData?: Partial<User>,
+    serviceData?: Array<ServiceRequest>,
+    acceptedServiceData?: Array<ServiceRequest>,
     error: string | null,
     type: string,
 };

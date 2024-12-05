@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import LocationSlice from "./reducers/LocationSlice";
 import AuthSlice from "./reducers/AuthReducers";
+import ServiceSlice from "./reducers/ServiceReducers";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./rootSaga";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     reducer: {
         locationSlice: LocationSlice,
         authSlice: AuthSlice,
+        serviceSlice: ServiceSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });

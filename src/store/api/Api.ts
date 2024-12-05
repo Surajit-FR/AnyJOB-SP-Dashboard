@@ -13,3 +13,9 @@ setupInterceptors();
 export const LOGIN = (data: TLoginCredentials) => API.post("/auth/signin", data);
 // Logout
 export const LOGOUT = () => API.post("/auth/logout");
+// Fetch nearby service requests
+export const FETCHNEARBYSERVICEREQ = () => API.get("/service/nearby-services-request");
+// Handle service req
+export const HANDLESERVICEREQ = (serviceId: string, data: { isReqAcceptedByServiceProvider: boolean, requestProgress: string }) => API.patch(`/service/c/${serviceId}`, data);
+// Get accepted service request
+export const GETACCEPTEDSERVICEREQ = () => API.get("/service/get-accepted-service-request");
