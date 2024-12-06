@@ -70,6 +70,6 @@ export type ServiceRequest = {
 };
 
 export type ServiceUpdateResponse = {
-    updatedService: UpdatedService;
+    updatedService: ServiceRequest;
     totalExecutionTime: number;
 };
