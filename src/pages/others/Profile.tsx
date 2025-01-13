@@ -1,20 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageHeader from "../../components/PageHeader";
 import { RiEdit2Line } from 'react-icons/ri';
 import { RootState } from '../../store/Store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileDataRequest } from '../../store/reducers/ProfileReducer';
 
 const Profile = (): JSX.Element => {
     const { latitude, longitude, locationError } = useSelector((state: RootState) => state.locationSlice);
+    const { userData } = useSelector((state: RootState) => state.profileSlice);
+    const userId = localStorage.getItem("_id") || ""
+    const dispatch = useDispatch()
 
     const initialState = {
         firstName: '',
         lastName: '',
-        email: '',
+        email:'',
         phone: '',
         address: '',
         zipCode: '',
-        companyInfo: ''
+        companyInfo: '',
     };
 
     const [isPersonalInfoEditable, setPersonalInfoEditable] = useState<boolean>(false);
@@ -44,20 +48,38 @@ const Profile = (): JSX.Element => {
         alert("Form saved successfully.");
     };
 
-    const togglePersonalInfoEdit = () => {
-        setPersonalInfoEditable(!isPersonalInfoEditable);
-        setFormChanged(true);
-    };
+    // const togglePersonalInfoEdit = () => {
+    //     setPersonalInfoEditable(!isPersonalInfoEditable);
+    //     setFormChanged(true);
+    // };
 
-    const toggleAddressInfoEdit = () => {
-        setAddressInfoEditable(!isAddressInfoEditable);
-        setFormChanged(true);
-    };
+    // const toggleAddressInfoEdit = () => {
+    //     setAddressInfoEditable(!isAddressInfoEditable);
+    //     setFormChanged(true);
+    // };
 
-    const toggleCompanyInfoEdit = () => {
-        setCompanyInfoEditable(!isCompanyInfoEditable);
-        setFormChanged(true);
-    };
+    // const toggleCompanyInfoEdit = () => {
+    //     setCompanyInfoEditable(!isCompanyInfoEditable);
+    //     setFormChanged(true);
+    // };
+
+    useEffect(() => {
+        dispatch(getProfileDataRequest({ id: userId }))
+    }, [dispatch, userId])
+
+    useEffect(() => {
+        if (userData) {
+            setFormData({
+                firstName: userData?.firstName ||'',
+                lastName: userData?.lastName ||'',
+                email: userData?.email ||'',
+                phone: userData?.phone ||'',
+                address: (userData?.userAddress && userData?.userAddress?.length > 0) ? userData?.userAddress[0].location : "",
+                zipCode: (userData?.userAddress && userData?.userAddress?.length > 0) ? String(userData?.userAddress[0].zipCode) : " ",
+                companyInfo: (userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].companyIntroduction : "",
+            })
+        }
+    }, [userData])
 
     return (
         <>
@@ -71,28 +93,28 @@ const Profile = (): JSX.Element => {
                                 <div className="col-md-4">
                                     <div className="profiles_it">
                                         <div className="profiles_img">
-                                            <img src="https://placehold.co/500x300" alt="" />
+                                            <img src={userData?.avatar ? userData.avatar : "https://placehold.co/500x300"} alt="" />
                                         </div>
                                         <div className="profiles_text">
                                             <div className="bd_ft">
-                                                <img src="https://placehold.co/170x150" alt="" />
+                                                <img src={userData?.avatar ? userData.avatar : "https://placehold.co/170x150"} alt="" />
                                             </div>
                                             <div className="d_showd">
                                                 <div className="text-center vg">
-                                                    <h4>Madalyn Rascon</h4>
-                                                    <p>Company Name</p>
+                                                    <h4>{userData?.firstName} {userData?.lastName}</h4>
+                                                    <p>{(userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].companyName : "N/A"}</p>
                                                 </div>
                                                 <ul className="pr_vot">
                                                     <li>
-                                                        <p>10</p>
+                                                        <p>{userData?.totalFieldAgent || 0}</p>
                                                         <h5>Field Agents</h5>
                                                     </li>
                                                     <li>
-                                                        <p>20</p>
+                                                        <p>{userData?.totalCompletedServices || 0}</p>
                                                         <h5>Complete Requests</h5>
                                                     </li>
                                                     <li>
-                                                        <p>30</p>
+                                                        <p>{userData?.totalNewServices || 0}</p>
                                                         <h5>New Requests</h5>
                                                     </li>
                                                 </ul>
@@ -106,7 +128,9 @@ const Profile = (): JSX.Element => {
                                         {/* Personal Info */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Personal Info
-                                                <RiEdit2Line onClick={togglePersonalInfoEdit} style={{ cursor: 'pointer', marginLeft: '10px' }} />
+                                                <RiEdit2Line
+                                                    // onClick={togglePersonalInfoEdit} 
+                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
                                             </h3>
                                         </div>
                                         <div className="col-md-6">
@@ -169,7 +193,9 @@ const Profile = (): JSX.Element => {
                                         {/* Address Info */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Address Info
-                                                <RiEdit2Line onClick={toggleAddressInfoEdit} style={{ cursor: 'pointer', marginLeft: '10px' }} />
+                                                <RiEdit2Line
+                                                    // onClick={toggleAddressInfoEdit} 
+                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
                                             </h3>
                                         </div>
                                         <div className="col-md-6">
@@ -211,7 +237,9 @@ const Profile = (): JSX.Element => {
                                         {/* Company Info */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Company Info
-                                                <RiEdit2Line onClick={toggleCompanyInfoEdit} style={{ cursor: 'pointer', marginLeft: '10px' }} />
+                                                <RiEdit2Line
+                                                    // onClick={toggleCompanyInfoEdit} 
+                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
                                             </h3>
                                         </div>
                                         <div className="col-md-12">
@@ -234,22 +262,22 @@ const Profile = (): JSX.Element => {
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="https://placehold.co/240x220" alt="" />
+                                                <img src={(userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].businessImage : "https://placehold.co/240x220"} alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="https://placehold.co/240x220" alt="" />
+                                                <img src={(userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].businessLicenseImage : "https://placehold.co/240x220"} alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="https://placehold.co/240x220" alt="" />
+                                                <img src={(userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].companyLicenseImage : "https://placehold.co/240x220"} alt="" />
                                             </div>
                                         </div>
                                         <div className="col-md-3">
                                             <div className="so_boxc">
-                                                <img src="https://placehold.co/240x220" alt="" />
+                                                <img src={(userData?.additionalInfo && userData?.additionalInfo?.length > 0) ? userData?.additionalInfo[0].licenseProofImage : "https://placehold.co/240x220"} alt="" />
                                             </div>
                                         </div>
 

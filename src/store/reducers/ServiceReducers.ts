@@ -17,8 +17,9 @@ const ServiceReducers = createSlice({
             state.type = type;
         },
         FetchNearbyServicesSuccess: (state, { payload, type }) => {
+            console.log(payload)
             state.type = type;
-            state.serviceData = payload?.data;
+            state.serviceData = payload?.data?.serviceRequests;
         },
         FetchNearbyServicesFailure: (state, { payload, type }) => {
             state.type = type;

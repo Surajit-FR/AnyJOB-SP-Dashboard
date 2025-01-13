@@ -1,4 +1,4 @@
-import { TCardData } from "../../../pages/others/Dashboard";
+import { TCardData } from "../../../../types/dashboard";
 
 const DataCard = ({ item }: { item: TCardData }): JSX.Element => {
     return (

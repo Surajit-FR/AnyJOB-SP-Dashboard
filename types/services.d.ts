@@ -67,6 +67,13 @@ export type ServiceRequest = {
         type: string;
         coordinates: [number, number];
     }; // Optional as it's missing in some entries
+    customerPhone?: string
+    customerName?: string
+    totalRatings?: number
+    userAvgRating?: string
+    categoryName?: string
+    userAvtar?: string
+    serviceRequests?: any
 };
 
 export type ServiceUpdateResponse = {

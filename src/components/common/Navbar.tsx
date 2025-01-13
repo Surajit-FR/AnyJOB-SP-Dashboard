@@ -31,7 +31,7 @@ const navLinks = [
     {
         path: "/job-queue",
         icon: <RiArchiveStackLine className="mx-1" />,
-        label: "Job Queue"
+        label: "Job Status"
     },
 ];
 

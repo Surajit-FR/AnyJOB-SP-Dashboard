@@ -64,9 +64,9 @@ const Topbar = (): JSX.Element => {
                                 <Link className="dropdown-item" to="/profile">
                                     <i className="mdi mdi-account-circle m-r-5 text-muted"></i> Profile
                                 </Link>
-                                <Link className="dropdown-item" to="/profile">
+                                {/* <Link className="dropdown-item" to="/profile">
                                     <i className="fa fa-pencil-square-o text-muted"></i> Edit Profile
-                                </Link>
+                                </Link> */}
                                 <Link className="dropdown-item" to="#" onClick={userLogout}>
                                     <i className="mdi mdi-logout m-r-5 text-muted"></i> Logout
                                 </Link>

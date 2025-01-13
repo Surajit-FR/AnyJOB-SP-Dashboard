@@ -1,25 +1,58 @@
-import { Link } from "react-router-dom";
-import AddFieldagentModal from "../../components/AddFieldagentModal";
+// import { Link } from "react-router-dom";
+import {
+    useEffect,
+    useState
+} from "react";
+
 import PageHeader from "../../components/PageHeader";
-import { useState } from "react";
+import AddFieldagentModal from "../../components/AddFieldagentModal";
+import FieldAgentsTable from "../../components/FieldAgentTable";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '../../store/Store'
+import { FetchFieldAgentRequest } from "../../store/reducers/FieldAgentSlice";
+import { Button } from "react-bootstrap";
+import { IteamMembers } from "../../../types/fieldAgentTypes";
+import { CSVLink } from "react-csv";
+
+const headers = [
+    { label: "First Name", key: "firstName" },
+    { label: "Last Name", key: "lastName" },
+    { label: "Email", key: "email" },
+    { label: "Phone", key: "phone" },
+    { label: "User Type", key: "userType" },
+];
+
+
 
 const FieldAgents = (): JSX.Element => {
-    const [switchBtn, setSwitchBtn] = useState<boolean>(false);
+    const userId = localStorage.getItem("_id") || ""
+    const { fieldAgent, assignSuccess } = useSelector((state: RootState) => state.fieldAgentSlice);
+    const dispatch = useDispatch()
+    const [fieldAgentData, setFieldAgentData] = useState<IteamMembers[]>([])
+    const [show, setShow] = useState<boolean>(false)
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true)
 
-    const toggleTeamLead = () => {
-        if (switchBtn) {
-            alert("Want to remove from Team Lead?");
-            setSwitchBtn(!switchBtn);
-        } else {
-            alert("Want to appoint from Team Lead?");
-            setSwitchBtn(!switchBtn);
-        };
-    };
+    useEffect(() => {
+        if (userId) {
+            dispatch(FetchFieldAgentRequest({ _id: userId }))
+        }
+    }, [dispatch, userId])
+
+    useEffect(() => {
+        if (fieldAgent) {
+            setFieldAgentData(fieldAgent.teamMembers);
+        }
+    }, [fieldAgent]);
+    useEffect(() => {
+        if (assignSuccess) {
+            dispatch(FetchFieldAgentRequest({ _id: userId }))
+        }
+    }, [assignSuccess, userId, dispatch])
 
     return (
         <>
-            <AddFieldagentModal />
-
+            <AddFieldagentModal show={show} handleClose={handleClose} />
             <PageHeader pageTitle="Field Agent" />
 
             <div className="row">
@@ -31,40 +64,21 @@ const FieldAgents = (): JSX.Element => {
                                     <h4 className="mt-0 header-title mb-4">Agents</h4>
                                 </div>
                                 <div className="col-md-6">
-                                    <div className="text-right">
-                                        <Link to="#" className="add_er are_add" data-toggle="modal"
-                                            data-target="#largeModal">Add Field Agent</Link>
+                                    <div className="row justify-content-end aign-items-center">
+                                        <div className="text-right">
+                                            <Button color="success" onClick={handleShow}>Add Field Agent</Button>
+
+                                        </div>
+                                        <div className="text-right">
+                                            <CSVLink data={fieldAgentData} headers={headers} filename={"All-Field-Agents.csv"}>
+                                                <Button style={{ width: "125px",marginLeft:"16px", backgroundColor: "#68c3c1" }}>Download Csv</Button>
+                                            </CSVLink>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
-
-                            <div className="table-responsive">
-                                <table className="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <img className="p_img" src="https://placehold.co/50x50" alt="" />
-                                            </td>
-                                            <td>Patrick Culhane</td>
-                                            <td>mohit@gmail.com </td>
-                                            <td>9876543210</td>
-                                            <td>
-                                                {switchBtn ? <Link to="#" className="add_er cancel" onClick={toggleTeamLead}> Remove TL</Link>
-                                                    : <Link to="#" className="add_er" onClick={toggleTeamLead}>Appoint TL</Link>}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <FieldAgentsTable data={fieldAgentData} />
                         </div>
                     </div>
                 </div>

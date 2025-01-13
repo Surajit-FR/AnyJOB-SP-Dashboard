@@ -16,6 +16,7 @@ export type DataState = {
     userData?: Partial<User>,
     serviceData?: Array<ServiceRequest>,
     acceptedServiceData?: Array<ServiceRequest>,
+    fieldAgentData?:Array<ServiceRequest>,
     error: string | null,
     type: string,
 };

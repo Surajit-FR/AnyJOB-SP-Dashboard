@@ -5,6 +5,7 @@ import { AuthLoginFailure, AuthLoginSuccess, AuthLogoutFailure, AuthLogoutSucces
 import { TLoginCredentials, UserData } from "../../../types/authTypes";
 import { NavigateFunction } from "react-router-dom";
 import { showToast } from "../../utils/Toast";
+import { socket } from "../api/socket";
 
 
 // loginSaga generator function
@@ -14,8 +15,10 @@ export function* loginSaga({ payload, type }: { payload: { data: TLoginCredentia
         const result: ApiResponse<UserData> = resp?.data;
         if (result?.success) {
             payload.navigate("/dashboard");
+            // console.log("LOGIN USER", result?.data)
             window.localStorage.setItem("accessToken", result?.data?.accessToken as string);
             window.localStorage.setItem("refreshToken", result?.data?.refreshToken as string);
+            window.localStorage.setItem("_id", result?.data?.user._id as string);
             showToast({ message: result?.message || 'Login Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
             yield put(AuthLoginSuccess(result));
         };
@@ -34,7 +37,9 @@ export function* logoutSaga({ payload, type }: { payload: { navigate: NavigateFu
             payload.navigate("/logout-page");
             window.localStorage.removeItem("accessToken");
             window.localStorage.removeItem("refreshToken");
+            window.localStorage.removeItem("_id");
             showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
+            socket.disconnect()
             yield put(AuthLogoutSuccess(result));
         };
     } catch (error: any) {

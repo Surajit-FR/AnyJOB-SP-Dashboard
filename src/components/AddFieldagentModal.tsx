@@ -1,53 +1,100 @@
-const AddFieldagentModal = (): JSX.Element => {
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/Store";
+import { AddFieldAgentRequest } from "../store/reducers/FieldAgentSlice";
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+// import { useState } from "react";
+
+interface AddFiieldAgentForm {
+    firstName: string
+    lastName: string
+    phone: string
+    email: string
+}
+interface Props {
+    show: boolean
+    handleClose: () => void
+}
+const AddFieldagentModal = ({ show, handleClose }: Props): JSX.Element => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<AddFiieldAgentForm>();
+    const dispatch: AppDispatch = useDispatch()
+
+    const onSubmit = (values: AddFiieldAgentForm): void => {
+        const data = { ...values, userType: 'FieldAgent' }
+        dispatch(AddFieldAgentRequest({ data, reset, handleClose }))
+    };
+
     return (
         <>
-            <div className="modal fade" id="largeModal" tabIndex={-1} role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                <div className="modal-dialog modal-lg b_prosion">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h4 className="modal-title f_add" id="myModalLabel">Add Field Agent</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <form>
-                                <div className="row p-3">
-                                    <div className="col-md-12">
-                                        <div className="add_input">
-                                            <h4>First Name</h4>
-                                            <input className="es_input" type="text" name="text" placeholder="Esther" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="add_input">
-                                            <h4>Last Name</h4>
-                                            <input className="es_input" type="text" name="text" placeholder="Howard" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="add_input">
-                                            <h4>Phone No.*</h4>
-                                            <input className="es_input" type="text" name="text" placeholder="(302) 555-0107" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="add_input">
-                                            <h4>Email Address </h4>
-                                            <input className="es_input" type="email" name="email" placeholder="esther.howard@example.com" />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="add_input">
-                                            <input className="add_agents" type="submit" value="Add Agent" />
-                                        </div>
-                                    </div>
+            <Modal show={show} onHide={handleClose} size="lg">
+                <Modal.Header >
+                    <Modal.Title >
+                        Add Field Agent
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <div className="row p-3">
+                            <div className="col-md-12">
+                                <div className="add_input">
+                                    <h4>First Name</h4>
+                                    <input className="es_input" type="text" placeholder="first Name"
+                                        {...register("firstName", {
+                                            required: "First Name is required",
+                                        })}
+                                    />
+                                    {errors.firstName && <div className="error">{errors.firstName.message}</div>}
                                 </div>
-                            </form>
+                            </div>
+                            <div className="col-md-12">
+                                <div className="add_input">
+                                    <h4>Last Name</h4>
+                                    <input className="es_input" type="text" placeholder="Last Name"
+                                        {...register("lastName", {
+                                            required: "Last Name is required",
+                                        })}
+                                    />
+                                    {errors.lastName && <div className="error">{errors.lastName.message}</div>}
+                                </div>
+
+                            </div>
+                            <div className="col-md-12">
+                                <div className="add_input">
+                                    <h4>Phone No.*</h4>
+                                    <input className="es_input" type="tel" placeholder="Phone Number"
+                                        {...register("phone", {
+                                            required: "Phone is required",
+                                        })} />
+                                    {errors.phone && <div className="error">{errors.phone.message}</div>}
+                                </div>
+
+                            </div>
+                            <div className="col-md-12">
+                                <div className="add_input">
+                                    <h4>Email Address </h4>
+                                    <input className="es_input" type="email" placeholder="Email"
+                                        {...register("email", {
+                                            required: "Email is required",
+                                        })} />
+                                    {errors.email && <div className="error">{errors.email.message}</div>}
+                                </div>
+
+                            </div>
+                            <button className="btn btn-lg btn-primary col-md-12 mb-2" type="submit">
+                                Submit
+                            </button>
+                            <Button
+                                variant="secondary"
+                                className="btn btn-lg btn-secondary col-md-12 "
+                                onClick={handleClose}>Close</Button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </form>
+                </Modal.Body>
+            </Modal>
         </>
     );
 };

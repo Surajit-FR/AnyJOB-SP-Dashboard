@@ -26,6 +26,10 @@ export type User = {
     updatedAt: string;
     additionalInfo: Array<AdditionalInfo>;
     userAddress: Array<UserAddress>;
+    _id? : string;
+    totalFieldAgent?: string;
+    totalCompletedServices?: string;
+    totalNewServices?: string;
 };
 
 export type UserData = {

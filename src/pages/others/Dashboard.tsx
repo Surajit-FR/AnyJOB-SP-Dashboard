@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
 import DataCard from "../../components/core/dashboard/DataCard";
-
-export type TCardData = {
-    title: string;
-    icon: string;
-    value: string;
-}
+import { TCardData } from '../../../types/dashboard'
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/Store";
+import { useEffect } from "react";
+import { FetchNearbyServicesRequest } from "../../store/reducers/ServiceReducers";
 
 const Dashboard = (): JSX.Element => {
+    const { serviceData } = useSelector((state: RootState) => state.serviceSlice);
+    // const { userData } = useSelector((state: RootState) => state.profileSlice);
+    // const userId = localStorage.getItem("_id") || ""
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'));
+        // 
+    }, [dispatch]);
+
     const dashboardCardData: Array<TCardData> = [
         {
             title: "Total Services Request",
@@ -65,70 +74,25 @@ const Dashboard = (): JSX.Element => {
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Avatar</th>
                                             <th>Customer</th>
                                             <th>Service Request</th>
-                                            <th>Service Status</th>
                                             <th>Request Status</th>
                                         </tr>
 
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>Arthur Henry</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2.</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.</td>
-                                            <td>Garrett Winters</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4.</td>
-                                            <td>Ashton Cox</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5.</td>
-                                            <td>Cedric Kelly</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6.</td>
-                                            <td>Airi Satou</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7.</td>
-                                            <td>Brielle Williamson</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8.</td>
-                                            <td>Herrod Chandler</td>
-                                            <td>Change the Air Filters</td>
-                                            <td>Pending</td>
-                                            <td>Accepted</td>
-                                        </tr>
+                                        {serviceData?.map((data, index) => (
+                                            <tr key={data._id}>
+                                                <td>{index + 1}</td>
+                                                <td>
+                                                    <img className="p_img" src={data.userAvtar ? data.userAvtar: "https://placehold.co/50x50"} alt="" />
+                                                </td>
+                                                <td>{data.customerName}</td>
+                                                <td>{data.categoryName}</td>
+                                                <td>{data.isReqAcceptedByServiceProvider ? "Accepted" : "Pending"}</td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
