@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {JobsState} from '../../../types/jobs'
-import { assaaignTeamLeadFailure } from "./FieldAgentSlice";
 
 const initialState: JobsState = {
     job: {

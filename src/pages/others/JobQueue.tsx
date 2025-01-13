@@ -186,8 +186,8 @@ const JobQueue = (): JSX.Element => {
                                                                 disabled
                                                                 size="lg"
                                                                 variant="outlined"
-                                                            >
-                                                                Assigned
+                                                            > 
+                                                                Assigned to {service?.assignedAgentId[0]?.firstName} {service?.assignedAgentId[0]?.lastName}
                                                             </Button>
                                                             :
                                                             <>
