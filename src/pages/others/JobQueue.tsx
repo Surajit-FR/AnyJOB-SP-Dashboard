@@ -116,6 +116,9 @@ const JobQueue = (): JSX.Element => {
             dispatch(fetchJobDetailRequestByType({ reqType: requestStatusFilter }))
         }
     }, [updationTime, dispatch, requestStatusFilter])
+    // const reversedJobs = filteredJob && filteredJob.length>0 && filteredJob.reverse()
+    // console.log({reversedJobs})
+    // console.log({filteredJob})
     return (
         <>
             <AgentListModel show={showAgent} handleClose={handleAgentModalClose} data={fieldAgentData} getFieldAgentId={getFieldAgentId} agentId={agentId} />
