@@ -1,10 +1,13 @@
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../store/Store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { AuthLogoutRequest } from "../../store/reducers/AuthReducers";
-
+import { getProfileDataRequest } from "../../store/reducers/ProfileReducer";
+import { RootState } from "../../store/Store";
 const Topbar = (): JSX.Element => {
+    const userId = localStorage.getItem("_id") || ""
+    const { userData } = useSelector((state: RootState) => state.profileSlice);
     const toggleClasses = () => {
         document.body.classList.toggle("fixed-left-void");
 
@@ -32,6 +35,10 @@ const Topbar = (): JSX.Element => {
         return () => clearInterval(intervalId); // Cleanup interval on unmount
     }, [dispatch]);
 
+    useEffect(() => {
+        dispatch(getProfileDataRequest({ id: userId }))
+    }, [dispatch, userId])
+
     return (
         <>
             <div className="topbar">
@@ -55,7 +62,7 @@ const Topbar = (): JSX.Element => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src="https://placehold.co/50x50"
+                                    src={userData?.avatar?  userData?.avatar :"https://placehold.co/50x50"}
                                     alt="user"
                                     className="rounded-circle"
                                 />
