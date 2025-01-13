@@ -23,7 +23,7 @@ export function* fetchNearByServiceSaga({ type }: { type: string }): SagaGenerat
         const resp = yield call(FETCHNEARBYSERVICEREQ);
         const result: ApiResponse<Array<ServiceRequest>> = resp?.data        ;
         if (result?.success) {
-            console.log({result})
+            // console.log({result})
             yield put(FetchNearbyServicesSuccess(result));
         };
     } catch (error: any) {

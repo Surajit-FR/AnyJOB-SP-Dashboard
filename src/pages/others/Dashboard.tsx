@@ -15,7 +15,6 @@ const Dashboard = (): JSX.Element => {
 
     useEffect(() => {
         dispatch(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'));
-        // 
     }, [dispatch]);
 
     const dashboardCardData: Array<TCardData> = [
@@ -82,7 +81,7 @@ const Dashboard = (): JSX.Element => {
 
                                     </thead>
                                     <tbody>
-                                        {serviceData?.map((data, index) => (
+                                        {serviceData?.slice(0,5).map((data, index) => (
                                             <tr key={data._id}>
                                                 <td>{index + 1}</td>
                                                 <td>

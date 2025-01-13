@@ -15,11 +15,12 @@ export const LOGIN = (data: TLoginCredentials) => API.post("/auth/signin", data)
 // Logout
 export const LOGOUT = () => API.post("/auth/logout");
 // Fetch nearby service requests
-export const FETCHNEARBYSERVICEREQ = (data?: string) => {
-    const queryString = new URLSearchParams();
-    queryString.append('query', "");
-    return API.get(`/service/nearby-services-request?${queryString.toString()}`);
-}
+// export const FETCHNEARBYSERVICEREQ = (data?: string) => {
+//     const queryString = new URLSearchParams();
+//     queryString.append('query', "");
+//     return API.get(`/service/nearby-services-request?${queryString.toString()}`);
+// }
+export const FETCHNEARBYSERVICEREQ = (data?: string) => API.get(`/service/nearby-services-request`);
 // Handle service req
 export const HANDLESERVICEREQ = (serviceId: string, data: { isReqAcceptedByServiceProvider: boolean, requestProgress: string }) => API.patch(`/service/c/${serviceId}`, data);
 // Get accepted service request
@@ -31,7 +32,7 @@ export const ADDFIELDAGENTS = (data: addFieldAgent) => API.post("/auth/add-assoc
 export const UPDATEFIELDAGENTPERMISSION = (data: { userId: string, acceptRequest: boolean, assignJob: boolean, fieldAgentManagement: boolean }) => API.post("/user/give-permission", data);
 
 // team leaad assign
-export const ASSIGNTEAMLEAD = (fieldAgentId: string) => API.post('/user/assign-teamlead', {fieldAgentId});
+export const ASSIGNTEAMLEAD = (fieldAgentId: string) => API.post('/user/assign-teamlead', { fieldAgentId });
 // export const ASSIGNTEAMLEAD = (fieldAgentId: string) => API.post('', fieldAgentId);
 export const UPDATEFIELDAGENTROLE = (fieldAgentId: string) => API.post(`/auth/update-field-agent-role/${fieldAgentId}`);
 //jobs

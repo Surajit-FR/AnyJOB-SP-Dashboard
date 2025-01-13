@@ -8,7 +8,6 @@ import { IJobDetail } from "../../../types/jobs";
 // job detail fetcher saga
 export function* fetchDaboardCardSaga({ payload, type }: { payload: { id :string }, type: string}): SagaGenerator<{ data: ApiResponse<IJobDetail> }> {
     try {
-        console.log("payloadd=========>",payload)
         const resp = yield call(GETJOBDETAIL, payload?.id);
         const result: ApiResponse<IJobDetail> = resp?.data;
         if (result?.success) {

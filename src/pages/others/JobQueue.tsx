@@ -16,9 +16,9 @@ import { socket } from "../../store/api/socket"
 const JobQueue = (): JSX.Element => {
     const serviceProviderId = localStorage.getItem("_id") || ""
     // const { acceptedServiceData } = useSelector((state: RootState) => state.serviceSlice);
-    const { job, filteredJob, 
+    const { job, filteredJob,
         // jobSuccess
-     } = useSelector((state: RootState) => state.jobSlice)
+    } = useSelector((state: RootState) => state.jobSlice)
     const { fieldAgent } = useSelector((state: RootState) => state.fieldAgentSlice)
     const [fieldAgentData, setFieldAgentData] = useState<IteamMembers[]>([])
     const dispatch: AppDispatch = useDispatch();
@@ -94,15 +94,15 @@ const JobQueue = (): JSX.Element => {
 
 
     useEffect(() => {
-            socket.connect()
-            socket.on('connect', () => { console.log("que page connected") })
-            socket.on('connect_error', (err) => { console.log("connected err", err) })
-            socket.on('jobListUpdate', (data) => {
-                setUpdationTime(data?.date)
-            })
+        socket.connect()
+        socket.on('connect', () => { console.log("que page connected") })
+        socket.on('connect_error', (err) => { console.log("connected err", err) })
+        socket.on('jobListUpdate', (data) => {
+            setUpdationTime(data?.date)
+        })
 
 
-            socket.on("disconnect", () => console.log("que page disconnected"))
+        socket.on("disconnect", () => console.log("que page disconnected"))
 
         return () => {
             socket.disconnect()
@@ -162,7 +162,7 @@ const JobQueue = (): JSX.Element => {
                                                 <th>Service Status</th>
                                                 {/* <th>Incentive</th>
                                                 <th>Incentive Amount</th> */}
-                                                <th className="text-center">Action</th>
+                                                {requestStatusFilter === "Accepted" && <th className="text-center">Action</th>}
                                                 <th className="text-center">view</th>
                                             </tr>
                                         </thead>
@@ -177,7 +177,7 @@ const JobQueue = (): JSX.Element => {
                                                     <td>{service?.requestProgress}</td>
                                                     {/* <td>{service?.isIncentiveGiven ? "YES" : "NO"}</td>
                                                     <td>{service?.incentiveAmount ? service?.incentiveAmount : "N/A"}</td> */}
-                                                    <td className="text-center">
+                                                    {requestStatusFilter === "Accepted" && <td className="text-center">
                                                         {service?.assignedAgentId[0]?.firstName ?
                                                             <Button
                                                                 disabled
@@ -203,7 +203,8 @@ const JobQueue = (): JSX.Element => {
                                                                     Assign
                                                                 </Button>
                                                             </>}
-                                                    </td>
+                                                    </td>}
+
                                                     <td className="text-center">
                                                         <Button className="add_er assign" onClick={() => modalDeatilOpen(service?._id)}>
                                                             Details

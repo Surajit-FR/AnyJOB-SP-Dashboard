@@ -38,47 +38,54 @@ const AgentPermissionModal = ({ show, onClose, data, onUpdate, }: Props) => {
                                     <tr>
                                         <td>Add New Agent</td>
                                         <td>
-                                            <p className="c_radio">
+                                            <p 
+                                            className="c_radio"
+                                            >
                                                 <input
                                                     type="checkbox"
-                                                    id="per_1"
-                                                    name="permission"
+                                                    id="per_11"
+                                                    name="per_11"
                                                     checked={tempagentState.fieldAgentManagement}
                                                     onChange={() => setAgentState(prevState => ({ ...prevState, fieldAgentManagement: !tempagentState.fieldAgentManagement }))}
-                                                    value="addNewAgent"
+                                                    className="re_radio"
                                                 />
-
+                                                <label htmlFor="per_11"></label>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Accept Service Request</td>
                                         <td>
-                                            <p className="c_radio">
+                                            <p 
+                                            className="c_radio"
+                                            >
                                                 <input
                                                     type="checkbox"
-                                                    id="per_3"
-                                                    name="permission"
+                                                    id="per_31"
+                                                    name="per_31"
                                                     checked={tempagentState.acceptRequest}
                                                     onChange={() => setAgentState(prevState => ({ ...prevState, acceptRequest: !tempagentState.acceptRequest }))}
-
-                                                    value="addNewAgent"
+                                                    className="re_radio"
                                                 />
+                                                <label htmlFor="per_31"></label>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Assign Job</td>
                                         <td>
-                                            <p className="c_radio">
+                                            <p 
+                                            className="c_radio"
+                                            >
                                                 <input
                                                     type="checkbox"
-                                                    id="per_2"
-                                                    name="permission"
+                                                    id="per_21"
+                                                    name="per_21"
                                                     checked={tempagentState.assignJob}
-                                                    onChange={(e) => setAgentState(prevState => ({ ...prevState, assignJob: !tempagentState.assignJob }))}
-                                                    value="addNewAgent"
+                                                    onChange={() => setAgentState(prevState => ({ ...prevState, assignJob: !tempagentState.assignJob }))}
+                                                    className="re_radio"
                                                 />
+                                                <label htmlFor="per_21"></label>
                                             </p>
                                         </td>
                                     </tr>

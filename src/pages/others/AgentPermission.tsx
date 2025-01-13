@@ -22,7 +22,7 @@ const AgentPermission = (): JSX.Element => {
     }
 
     const onUpdatingAgentPermissions = useCallback((data: any) => {
-        dispatch(UpdateFieldAgentsPermissionsRequest({ data, onClose:onCloseModal }))
+        dispatch(UpdateFieldAgentsPermissionsRequest({ data, onClose: onCloseModal }))
     }, [dispatch])
 
     useEffect(() => {
@@ -64,38 +64,45 @@ const AgentPermission = (): JSX.Element => {
                                                     {data?.firstName} {data.lastName}
                                                 </td>
                                                 <td>
-                                                    <p className="c_radio">
+                                                    <p className="c_radio"
+                                                        style={{ pointerEvents: "none", cursor: 'default' }}
+                                                    >
                                                         <input className="re_radio"
                                                             type="checkbox"
-                                                            id="per_1"
+                                                            id={data?._id + '1'}
                                                             name="permission"
                                                             checked={Boolean(data?.agentPermission[0]?.fieldAgentManagement)}
                                                             disabled
                                                         />
-                                                        <label htmlFor="per_1"></label>
+                                                        <label htmlFor={data?._id + '1'}></label>
                                                     </p>
                                                 </td>
                                                 <td>
-                                                    <p className="c_radio">
+                                                    <p className="c_radio"
+                                                        style={{ pointerEvents: "none", cursor: 'default' }}
+                                                    >
                                                         <input className="re_radio"
                                                             type="checkbox"
-                                                            id="per_2"
+                                                            id={data?._id + '2'}
                                                             name="permission"
                                                             checked={Boolean(data?.agentPermission[0]?.acceptRequest)}
                                                             disabled
                                                         />
-                                                        <label htmlFor="per_2"></label>
+                                                        <label htmlFor={data?._id + '2'}></label>
                                                     </p>
                                                 </td>
                                                 <td>
-                                                    <p className="c_radio">
+                                                    <p className="c_radio"
+                                                        style={{ pointerEvents: "none", cursor: 'default' }}
+                                                    >
                                                         <input className="re_radio"
-                                                            type="checkbox" id="per_3"
+                                                            type="checkbox"
+                                                            id={data?._id + '3'}
                                                             name="permission"
                                                             checked={Boolean(data?.agentPermission[0]?.assignJob)}
                                                             disabled
                                                         />
-                                                        <label htmlFor="per_3"></label>
+                                                        <label htmlFor={data?._id + '3'}></label>
                                                     </p>
                                                 </td>
                                                 <td>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import PageHeader from "../../components/PageHeader";
-import { RiEdit2Line } from 'react-icons/ri';
+// import { RiEdit2Line } from 'react-icons/ri';
 import { RootState } from '../../store/Store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfileDataRequest } from '../../store/reducers/ProfileReducer';
@@ -128,9 +128,9 @@ const Profile = (): JSX.Element => {
                                         {/* Personal Info */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Personal Info
-                                                <RiEdit2Line
+                                                {/* <RiEdit2Line
                                                     // onClick={togglePersonalInfoEdit} 
-                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
+                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} /> */}
                                             </h3>
                                         </div>
                                         <div className="col-md-6">
@@ -192,11 +192,11 @@ const Profile = (): JSX.Element => {
 
                                         {/* Address Info */}
                                         <div className="col-md-12">
-                                            <h3 className="ty_1">Address Info
+                                            {/* <h3 className="ty_1">Address Info
                                                 <RiEdit2Line
                                                     // onClick={toggleAddressInfoEdit} 
                                                     style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
-                                            </h3>
+                                            </h3> */}
                                         </div>
                                         <div className="col-md-6">
                                             <div className="n_t">
@@ -237,9 +237,9 @@ const Profile = (): JSX.Element => {
                                         {/* Company Info */}
                                         <div className="col-md-12">
                                             <h3 className="ty_1">Company Info
-                                                <RiEdit2Line
+                                                {/* <RiEdit2Line
                                                     // onClick={toggleCompanyInfoEdit} 
-                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} />
+                                                    style={{ cursor: 'pointer', marginLeft: '10px', pointerEvents: 'none' }} /> */}
                                             </h3>
                                         </div>
                                         <div className="col-md-12">
