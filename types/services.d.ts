@@ -38,7 +38,7 @@ export type ServiceRequest = {
         categoryImage: string;
     };
     subCategoryId?: string; // Optional as it's missing in some entries
-    serviceStartDate: string;
+    serviceStartDate: string | Date;
     serviceShifftId: string;
     serviceZipCode: number;
     serviceLatitude: number;
@@ -70,10 +70,11 @@ export type ServiceRequest = {
     customerPhone?: string
     customerName?: string
     totalRatings?: number
-    userAvgRating?: string
+    userAvgRating?: number
     categoryName?: string
     userAvtar?: string
     serviceRequests?: any
+    distance?: number
 };
 
 export type ServiceUpdateResponse = {

@@ -9,6 +9,18 @@ import { fetchJobDetailRequest } from "../../store/reducers/jobReducer";
 import { ServiceRequest } from "../../../types/services";
 // import { FetchFieldAgentRequest } from "../../store/reducers/FieldAgentSlice";
 import { socket } from '../../store/api/socket'
+import { Button } from "react-bootstrap";
+import { CSVLink } from "react-csv";
+
+const headers = [
+    { label: "Customer Name", key: "customerName" },
+    { label: "Category", key: "categoryName" },
+    { label: "Service Address", key: "serviceAddress" },
+    { label: "Distance (in Meters)", key: "distance" },
+    { label: "Service Start date", key: "serviceStartDate" },
+    { label: "Total Number of Ratings", key: "totalRatings" },
+    { label: "Average Rating", key: "userAvgRating" },
+];
 
 const JobRequests = (): JSX.Element => {
     // const { latitude, longitude } = useSelector((state: RootState) => state.locationSlice);
@@ -18,7 +30,7 @@ const JobRequests = (): JSX.Element => {
     const dispatch: AppDispatch = useDispatch();
     const [detailShow, setDetailShow] = useState<boolean>(false)
     const [stateServiceData, setStateServiceData] = useState<Array<ServiceRequest>>([]);
-    const [updationTime,setUpdationTime]= useState("")
+    const [updationTime, setUpdationTime] = useState("")
     // const [showAgent, setShowAgent] = useState<boolean>(false)
 
     // const handleAgentModalOpen = () => {
@@ -49,27 +61,27 @@ const JobRequests = (): JSX.Element => {
     }, [serviceData]);
 
     useEffect(() => {
-            socket.connect()
-            socket.on("connect", () => console.log("request page connected"))
-            socket.on('connect_error', (err) => { console.log("connected err", err) })
-            socket.on('nearbyServicesUpdate',(data)=> {
-                setUpdationTime(data?.date)
-                console.log(data)
-            })
-            
-            socket.on("disconnect", () => console.log("request page disconnected"))
-        return()=>{
+        socket.connect()
+        socket.on("connect", () => console.log("request page connected"))
+        socket.on('connect_error', (err) => { console.log("connected err", err) })
+        socket.on('nearbyServicesUpdate', (data) => {
+            setUpdationTime(data?.date)
+            console.log(data)
+        })
+
+        socket.on("disconnect", () => console.log("request page disconnected"))
+        return () => {
             socket.disconnect()
             setUpdationTime("")
         }
     }, [])
 
-    useEffect(()=>{
-        if(updationTime){
+    useEffect(() => {
+        if (updationTime) {
             dispatch(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'))
         }
-    },[updationTime,dispatch])
-    
+    }, [updationTime, dispatch])
+
     return (
         <>
             {/* <AgentListModel show={showAgent} handleClose={handleAgentModalClose} data={fieldAgent}/> */}
@@ -84,6 +96,28 @@ const JobRequests = (): JSX.Element => {
                                 <div className="col-md-6">
                                     <h4 className="mt-0 header-title mb-4">Service Requests</h4>
                                 </div>
+                                <div className="col-md-6">
+
+                                    <div className="text-right">
+                                        <CSVLink
+                                            data={stateServiceData&& stateServiceData.length> 0 ? stateServiceData.map(data =>
+                                            (
+                                                {
+                                                    ...data,
+                                                    serviceStartDate: new Date(data.serviceStartDate).toLocaleDateString(),
+                                                    distance: data.distance?.toFixed(2),
+                                                    userAvgRating: data.userAvgRating?.toFixed(2)
+                                                }
+                                            ) 
+                                            ): []}
+                                            headers={headers}
+                                            filename={"Nearby-Service-requests.csv"}
+                                        >
+                                            <Button style={{ width: "125px", marginLeft: "16px", backgroundColor: "#68c3c1" }}>Download Csv</Button>
+                                        </CSVLink>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div className="table-responsive">
@@ -101,7 +135,7 @@ const JobRequests = (): JSX.Element => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {stateServiceData?.map((service, index) => (
+                                            {stateServiceData && stateServiceData.length> 0 && stateServiceData?.map((service, index) => (
                                                 <tr key={index}>
                                                     <td>
                                                         <img className="p_img" src={service?.userAvtar ? service?.userAvtar : "https://placehold.co/50x50"} alt="" />

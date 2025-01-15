@@ -21,7 +21,7 @@ import { ServiceRequest, ServiceUpdateResponse } from "../../../types/services";
 export function* fetchNearByServiceSaga({ type }: { type: string }): SagaGenerator<{ data: ApiResponse<Array<ServiceRequest>> }> {
     try {
         const resp = yield call(FETCHNEARBYSERVICEREQ);
-        const result: ApiResponse<Array<ServiceRequest>> = resp?.data        ;
+        const result: ApiResponse<Array<ServiceRequest>> = resp?.data;
         if (result?.success) {
             // console.log({result})
             yield put(FetchNearbyServicesSuccess(result));
@@ -33,14 +33,14 @@ export function* fetchNearByServiceSaga({ type }: { type: string }): SagaGenerat
 };
 
 // handleServiceReqSaga generator function
-export function* handleServiceReqSaga({ payload, type }: { payload: { serviceId: string, data: { isReqAcceptedByServiceProvider: boolean, requestProgress: string }, emmitToScket?: ()=> void }, type: string }): SagaGenerator<{ data: ApiResponse<ServiceUpdateResponse> }> {
+export function* handleServiceReqSaga({ payload, type }: { payload: { serviceId: string, data: { isReqAcceptedByServiceProvider: boolean, requestProgress: string }, emmitToScket?: () => void }, type: string }): SagaGenerator<{ data: ApiResponse<ServiceUpdateResponse> }> {
     try {
         const resp = yield call(HANDLESERVICEREQ, payload?.serviceId, payload?.data);
         const result: ApiResponse<ServiceUpdateResponse> = resp?.data;
 
         if (result?.success) {
             yield put(HandleServicesSuccess(result));
-            payload?.emmitToScket && payload?.emmitToScket() 
+            payload?.emmitToScket && payload?.emmitToScket()
             // yield put(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'));
             showToast({ message: result?.message, type: 'success', durationTime: 3000, position: "top-center" });
         };
