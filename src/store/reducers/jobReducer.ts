@@ -17,6 +17,7 @@ const initialState: JobsState = {
     type: '',
     filteredJob: [],
     jobSuccess:false,
+    totalJobElements:0
 };
 
 const JobsReducer = createSlice({
@@ -38,8 +39,10 @@ const JobsReducer = createSlice({
             state.type = type;
         },
         fetchJobDetailRequestByTypeSuccess: (state, { payload, type }) => {
+            console.log(payload.data)
             state.type = type;
             state.filteredJob = payload?.data?.results;
+            state.totalJobElements = payload?.data?.totalRequest
         },
         fetchJobDetailRequestByTypeFailure: (state, { payload, type }) => {
             state.type = type;

@@ -5,30 +5,29 @@ import PageHeader from "../../components/PageHeader";
 import JobDetailsModal from "../../components/JobDetailsModal";
 import { AppDispatch, RootState } from "../../store/Store";
 import { useDispatch, useSelector } from "react-redux";
-// import { GetAcceptedServicesRequest } from "../../store/reducers/ServiceReducers";
-// import { ServiceRequest } from "../../../types/services";
 import { Button } from "react-bootstrap";
 import { fetchJobDetailRequest, fetchJobDetailRequestByType, assignJobRequest } from "../../store/reducers/jobReducer";
 import { FetchFieldAgentRequest } from "../../store/reducers/FieldAgentSlice";
 import { IteamMembers } from "../../../types/fieldAgentTypes";
 import { socket } from "../../store/api/socket"
+import Pagination from "react-js-pagination";
+import Spinner from 'react-bootstrap/Spinner'
 
 const JobQueue = (): JSX.Element => {
     const serviceProviderId = localStorage.getItem("_id") || ""
-    // const { acceptedServiceData } = useSelector((state: RootState) => state.serviceSlice);
-    const { job, filteredJob,
-        // jobSuccess
-    } = useSelector((state: RootState) => state.jobSlice)
+    const { job, filteredJob, totalJobElements } = useSelector((state: RootState) => state.jobSlice)
     const { fieldAgent } = useSelector((state: RootState) => state.fieldAgentSlice)
     const [fieldAgentData, setFieldAgentData] = useState<IteamMembers[]>([])
     const dispatch: AppDispatch = useDispatch();
-    // const [acceptedServiceStateData, setAcceptedServiceStateData] = useState<Array<ServiceRequest>>([]);
     const [requestStatusFilter, setRequestStatusFilter] = useState<string>("Accepted");
     const [showDetail, setShowDetail] = useState<boolean>(false)
     const [showAgent, setShowAgent] = useState<boolean>(false)
     const [serviceId, setServiceId] = useState<string>("")
     const [agentId, setAgentId] = useState<string>("")
     const [updationTime, setUpdationTime] = useState("")
+    const [page, setPage] = useState(1)
+    const [trimmedData, setTrimmedData] = useState<any>([])
+    const pageSize = 10
 
     const handleAgentModalOpen = (id: string | null) => {
         dispatch(FetchFieldAgentRequest({ _id: id }))
@@ -59,16 +58,6 @@ const JobQueue = (): JSX.Element => {
     const emmitToScket = () => {
         socket.emit("serviceAssigned", {})
     }
-    // Filter the jobs based on the selected filters
-    // const filteredJobs = acceptedServiceStateData.filter((service) => requestStatusFilter === "" || service.requestProgress === requestStatusFilter);
-
-    // useEffect(() => {
-    //     dispatch(GetAcceptedServicesRequest('serviceReducers/GetAcceptedServicesRequest'));
-    // }, [dispatch]);
-
-    // useEffect(() => {
-    //     setAcceptedServiceStateData(acceptedServiceData as Array<ServiceRequest>);
-    // }, [acceptedServiceData]);
 
     useEffect(() => {
         if (serviceId && agentId) {
@@ -77,14 +66,7 @@ const JobQueue = (): JSX.Element => {
     }, [serviceId, agentId, dispatch])
 
     useEffect(() => { dispatch(fetchJobDetailRequestByType({ reqType: requestStatusFilter })) }, [dispatch, requestStatusFilter])
-    // useEffect(() => {
-    //     if (jobSuccess) {
-    //         dispatch(fetchJobDetailRequestByType({ reqType: requestStatusFilter }))
-    //         setAgentId("")
-    //         setServiceId("")
-    //     }
 
-    // }, [dispatch, requestStatusFilter, jobSuccess])
 
     useEffect(() => {
         if (fieldAgent) {
@@ -109,16 +91,23 @@ const JobQueue = (): JSX.Element => {
             setUpdationTime("")
         }
     }, [])
-
+    const handlePgeChange = (pageNum: any) => {
+        console.log(pageNum)
+        setPage(pageNum)
+    }
 
     useEffect(() => {
         if (updationTime) {
             dispatch(fetchJobDetailRequestByType({ reqType: requestStatusFilter }))
         }
     }, [updationTime, dispatch, requestStatusFilter])
-    // const reversedJobs = filteredJob && filteredJob.length>0 && filteredJob.reverse()
-    // console.log({reversedJobs})
-    // console.log({filteredJob})
+    useEffect(() => {
+
+        const tempdata = filteredJob.slice((page - 1) * pageSize, page * pageSize)
+        setTrimmedData(tempdata)
+
+    }, [filteredJob, page])
+
     return (
         <>
             <AgentListModel show={showAgent} handleClose={handleAgentModalClose} data={fieldAgentData} getFieldAgentId={getFieldAgentId} agentId={agentId} />
@@ -133,7 +122,10 @@ const JobQueue = (): JSX.Element => {
                             id="requestStatus"
                             className="form-control select-custom"
                             value={requestStatusFilter}
-                            onChange={(e) => setRequestStatusFilter(e.target.value)}
+                            onChange={(e) => {
+                                setRequestStatusFilter(e.target.value)
+                                setPage(1)
+                            }}
                         >
                             {/* Accepted,Started,Completed,Cancelled */}
                             <option value="Accepted" defaultValue={"Accepted"}>Accepted</option>
@@ -155,7 +147,7 @@ const JobQueue = (): JSX.Element => {
                                 </div>
                             </div>
                             <div className="table-responsive">
-                                {filteredJob?.length > 0 ?
+                                {trimmedData && trimmedData?.length > 0 ?
                                     <table className="table table-hover mb-0">
                                         <thead>
                                             <tr>
@@ -163,14 +155,12 @@ const JobQueue = (): JSX.Element => {
                                                 <th>Customer</th>
                                                 <th>Service Req. Category</th>
                                                 <th>Service Status</th>
-                                                {/* <th>Incentive</th>
-                                                <th>Incentive Amount</th> */}
                                                 {requestStatusFilter === "Accepted" && <th className="text-center">Action</th>}
                                                 <th className="text-center">view</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {filteredJob?.map((service: any, index: number) => (
+                                            {trimmedData?.map((service: any, index: number) => (
                                                 <tr key={index}>
                                                     <td>
                                                         <img className="p_img" src={service?.customerAvatar ? service?.customerAvatar : "https://placehold.co/50x50"} alt="" />
@@ -186,7 +176,7 @@ const JobQueue = (): JSX.Element => {
                                                                 disabled
                                                                 size="lg"
                                                                 variant="outlined"
-                                                            > 
+                                                            >
                                                                 Assigned to {service?.assignedAgentId[0]?.firstName} {service?.assignedAgentId[0]?.lastName}
                                                             </Button>
                                                             :
@@ -216,9 +206,27 @@ const JobQueue = (): JSX.Element => {
                                                 </tr>
                                             ))}
                                         </tbody>
+
                                     </table>
                                     : <p className="text-center mt-3">No jobs match the selected filters.</p>
                                 }
+                                <div className="row m-0 mt-2">
+                                    <div className="col-md-6"><h6>Showing {((page - 1) * pageSize) + 1} to {page * pageSize <= totalJobElements ? page * pageSize : totalJobElements} of {totalJobElements} results</h6></div>
+                                    <div className="col-md-6 justify-content-end">
+                                        <div className="d-flex justify-content-end">
+                                            <Pagination
+                                                activePage={page}
+                                                itemsCountPerPage={10}
+                                                totalItemsCount={totalJobElements}
+                                                pageRangeDisplayed={5}
+                                                onChange={handlePgeChange}
+                                                itemClass="page-item bg-dark"
+                                                linkClass="page-link"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

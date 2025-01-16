@@ -16,4 +16,5 @@ export type JobsState = {
     type: string,
     filteredJob?: any,
     jobSuccess?:boolean
+    totalJobElements:number
 }
