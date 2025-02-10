@@ -10,6 +10,7 @@ import ProfileSlice from "./reducers/ProfileReducer"
 
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./rootSaga";
+import IpReducers from "./reducers/IpReducers";
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
@@ -23,6 +24,7 @@ export const store = configureStore({
         jobSlice: JobsReducer,
         dashboardSlice: dashboardSlice,
         profileSlice: ProfileSlice,
+        ipSlice:IpReducers
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });

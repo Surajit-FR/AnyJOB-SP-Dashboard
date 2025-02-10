@@ -8,7 +8,7 @@ import {
     fetchJobDetailRequestByTypeSuccess,
     fetchJobDetailRequestByTypeFailure,
     assignJobRequestSuccess,
-    fetchJobDetailRequestByType,
+    // fetchJobDetailRequestByType,
     assignJobRequestFailure
 } from "../reducers/jobReducer";
 import { IJobDetail, JobsState } from "../../../types/jobs";

@@ -20,7 +20,30 @@ export const LOGOUT = () => API.post("/auth/logout");
 //     queryString.append('query', "");
 //     return API.get(`/service/nearby-services-request?${queryString.toString()}`);
 // }
-export const FETCHNEARBYSERVICEREQ = (data?: string) => API.get(`/service/nearby-services-request`);
+// export const FETCHNEARBYSERVICEREQ = (data?: string) => API.get(`/service/nearby-services-request`);
+export const FETCHNEARBYSERVICEREQ = (data?: {
+    page: string | number,
+    limit: number 
+    sortType?: 'desc'
+}) =>
+{
+        const queryString = new URLSearchParams();
+//     // Add categoryId only if it exists
+    if (data?.page) {
+        queryString.append('page', String(data.page));
+    }
+    if (data?.limit) {
+        queryString.append('limit', String(data.limit));
+    }
+    if (data?.limit) {
+        queryString.append('sortType', String(data.sortType));
+    }
+    return API.get(`/service/nearby-services-request?${queryString.toString()}`);
+}
+    
+    
+    
+    
 // Handle service req
 export const HANDLESERVICEREQ = (serviceId: string, data: { isReqAcceptedByServiceProvider: boolean, requestProgress: string }) => API.patch(`/service/c/${serviceId}`, data);
 // Get accepted service request
@@ -51,3 +74,7 @@ export const GETPROFILEINFO = (userId: string) => API.get(`/user/u/${userId}`)
 // };
 //field agent permission
 export const GETASSOSSIATESS = (providerId: string) => API.get(`/user/get-associates`)
+
+//export ip log detais to server
+export const GETIPDETAILFORUSER = (data: any)=> axios.get(`https://api.hostip.info/get_html.php?ip=${data?.ipAddress}&position=true`)
+export const POSTIPLOGDETAILS = (data:any) => API.post("/user/create-iplog",data)

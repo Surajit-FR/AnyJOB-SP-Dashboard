@@ -75,6 +75,7 @@ export type ServiceRequest = {
     userAvtar?: string
     serviceRequests?: any
     distance?: number
+    serviceAddress?:string
 };
 
 export type ServiceUpdateResponse = {

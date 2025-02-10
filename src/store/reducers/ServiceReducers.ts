@@ -5,7 +5,10 @@ const initialState: DataState = {
     serviceData: [],
     acceptedServiceData: [],
     error: null,
-    type: ''
+    type: '',
+    isServiceloading: false,
+    serviceSuccess: false,
+    totalServiceData: 0,
 };
 
 const ServiceReducers = createSlice({
@@ -14,15 +17,22 @@ const ServiceReducers = createSlice({
     reducers: {
         // Fetch nearby Service
         FetchNearbyServicesRequest: (state, { payload, type }) => {
+            state.isServiceloading = true;
+            state.serviceSuccess = false;
             state.type = type;
         },
         FetchNearbyServicesSuccess: (state, { payload, type }) => {
             state.type = type;
             state.serviceData = payload?.data?.serviceRequests;
+            state.totalServiceData = payload?.data?.pagination.totalRecords;
+            state.isServiceloading = false;
+            state.serviceSuccess = true;
         },
         FetchNearbyServicesFailure: (state, { payload, type }) => {
             state.type = type;
             state.error = payload;
+            state.isServiceloading = false;
+            state.serviceSuccess = false;
         },
 
         // Handle Service Req

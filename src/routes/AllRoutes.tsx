@@ -14,7 +14,7 @@ const AllRoutes = (): JSX.Element => {
                 <Route path='/field-agents' element={<FieldAgents />} />
                 <Route path='/agent-permission' element={<AgentPermission />} />
                 <Route path='/job-requests' element={<JobRequests />} />
-                <Route path='/job-queue' element={<JobQueue />} />
+                <Route path='/job-status' element={<JobQueue />} />
                 <Route path='/profile' element={<Profile />} />
             </Routes>
         </>

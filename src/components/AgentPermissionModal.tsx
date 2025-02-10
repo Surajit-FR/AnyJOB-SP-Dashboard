@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import { BsXLg } from "react-icons/bs";
 
 interface Props {
     show: boolean
@@ -27,7 +28,17 @@ const AgentPermissionModal = ({ show, onClose, data, onUpdate, }: Props) => {
             show={show}
         >
             <Modal.Header className='justify-content-start'>
-                <h5 className='mr-2'>Update Role of Agent</h5><h4>{data?.firstName} {data?.lastName}</h4> 
+                <Modal.Title>
+                {/* <h5 className='mr-2'> */}
+                    Update Role of Agent
+                    {/* </h5> */}
+                    {/* <h4> */}
+                        {/* { */}
+                    <strong>{data?.firstName} {data?.lastName}</strong>
+                        
+                        {/* </h4>  */}
+                </Modal.Title>
+                <BsXLg onClick={()=>{onModalClose()}} style={{cursor:"pointer"}} size={25}/>
             </Modal.Header>
             <Modal.Body>
                 <div className='row p-3'>

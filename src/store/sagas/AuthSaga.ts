@@ -19,6 +19,7 @@ export function* loginSaga({ payload, type }: { payload: { data: TLoginCredentia
             window.localStorage.setItem("accessToken", result?.data?.accessToken as string);
             window.localStorage.setItem("refreshToken", result?.data?.refreshToken as string);
             window.localStorage.setItem("_id", result?.data?.user._id as string);
+            window.localStorage.setItem("role", result?.data?.user.userType as string);
             showToast({ message: result?.message || 'Login Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
             yield put(AuthLoginSuccess(result));
         };
@@ -38,6 +39,9 @@ export function* logoutSaga({ payload, type }: { payload: { navigate: NavigateFu
             window.localStorage.removeItem("accessToken");
             window.localStorage.removeItem("refreshToken");
             window.localStorage.removeItem("_id");
+            window.localStorage.removeItem("role");
+            localStorage.clear()
+            sessionStorage.clear()
             showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
             socket.disconnect()
             yield put(AuthLogoutSuccess(result));

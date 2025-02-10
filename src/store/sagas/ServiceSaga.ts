@@ -3,6 +3,7 @@ import { ApiResponse, SagaGenerator } from "../../../types/common";
 import { showToast } from "../../utils/Toast";
 import {
     FetchNearbyServicesFailure,
+    FetchNearbyServicesRequest,
     FetchNearbyServicesSuccess,
     GetAcceptedServicesFailure,
     GetAcceptedServicesSuccess,
@@ -18,12 +19,11 @@ import { ServiceRequest, ServiceUpdateResponse } from "../../../types/services";
 
 
 // fetchNearByServiceSaga generator function
-export function* fetchNearByServiceSaga({ type }: { type: string }): SagaGenerator<{ data: ApiResponse<Array<ServiceRequest>> }> {
+export function* fetchNearByServiceSaga({ payload,type }: { payload:any ,type: string }): SagaGenerator<{ data: ApiResponse<Array<ServiceRequest>> }> {
     try {
-        const resp = yield call(FETCHNEARBYSERVICEREQ);
+        const resp = yield call(FETCHNEARBYSERVICEREQ,payload?.data);
         const result: ApiResponse<Array<ServiceRequest>> = resp?.data;
         if (result?.success) {
-            // console.log({result})
             yield put(FetchNearbyServicesSuccess(result));
         };
     } catch (error: any) {
@@ -41,7 +41,7 @@ export function* handleServiceReqSaga({ payload, type }: { payload: { serviceId:
         if (result?.success) {
             yield put(HandleServicesSuccess(result));
             payload?.emmitToScket && payload?.emmitToScket()
-            // yield put(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'));
+            yield put(FetchNearbyServicesRequest({data: { page: 1, limit: 10, sortType:'desc' }}))
             showToast({ message: result?.message, type: 'success', durationTime: 3000, position: "top-center" });
         };
     } catch (error: any) {
@@ -58,7 +58,6 @@ export function* getAcceptedServiceReqSaga({ type }: { type: string }): SagaGene
 
         if (result?.success) {
             yield put(GetAcceptedServicesSuccess(result));
-            // yield put(FetchNearbyServicesRequest('serviceReducers/FetchNearbyServicesRequest'));
         };
     } catch (error: any) {
         yield put(GetAcceptedServicesFailure(error?.response?.data?.message));

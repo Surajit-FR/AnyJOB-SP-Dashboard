@@ -1,4 +1,5 @@
 import { Button, Modal, ModalHeader, ModalTitle } from "react-bootstrap";
+import { BsXLg } from "react-icons/bs";
 
 interface Props {
     show: boolean
@@ -14,6 +15,7 @@ const JobDetailsModal = ({ show, handleClose, data }: Props) => {
                     <ModalTitle>
                         Job Details
                     </ModalTitle>
+                    <BsXLg onClick={()=>{handleClose()}} style={{cursor:"pointer"}} size={25}/>
                 </ModalHeader>
                 <Modal.Body>
                     <form>

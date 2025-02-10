@@ -17,7 +17,8 @@ const initialState: JobsState = {
     type: '',
     filteredJob: [],
     jobSuccess:false,
-    totalJobElements:0
+    totalJobElements:0,
+    isJobLoading:false,
 };
 
 const JobsReducer = createSlice({
@@ -37,16 +38,21 @@ const JobsReducer = createSlice({
         },
         fetchJobDetailRequestByType: (state, { payload, type }) => {
             state.type = type;
+            state.isJobLoading=true;
+            state.jobSuccess= false;
         },
         fetchJobDetailRequestByTypeSuccess: (state, { payload, type }) => {
-            console.log(payload.data)
             state.type = type;
             state.filteredJob = payload?.data?.results;
             state.totalJobElements = payload?.data?.totalRequest
+            state.isJobLoading= false
+            state.jobSuccess= true
         },
         fetchJobDetailRequestByTypeFailure: (state, { payload, type }) => {
             state.type = type;
             state.error = payload;
+            state.isJobLoading= false
+            state.jobSuccess= false
         },
         assignJobRequest: (state, { payload, type }) => {
             state.type = type;
@@ -61,6 +67,7 @@ const JobsReducer = createSlice({
             state.error = payload;
             state.jobSuccess= false
         },
+        cleanup: () => initialState,
     }
 })
 
@@ -74,6 +81,7 @@ export const {
     assignJobRequest,
     assignJobRequestSuccess,
     assignJobRequestFailure,
+    cleanup,
 } = JobsReducer.actions
 
 export default JobsReducer.reducer;

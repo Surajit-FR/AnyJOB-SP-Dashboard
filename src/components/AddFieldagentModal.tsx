@@ -5,6 +5,7 @@ import { AddFieldAgentRequest } from "../store/reducers/FieldAgentSlice";
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { BsXLg } from "react-icons/bs";
 // import { useState } from "react";
 
 interface AddFiieldAgentForm {
@@ -29,10 +30,11 @@ const AddFieldagentModal = ({ show, handleClose }: Props): JSX.Element => {
     return (
         <>
             <Modal show={show} onHide={handleClose} size="lg">
-                <Modal.Header >
+                <Modal.Header>
                     <Modal.Title >
                         Add Field Agent
                     </Modal.Title>
+                    <BsXLg onClick={()=>{handleClose()}} style={{cursor:"pointer"}} size={25}/>
                 </Modal.Header>
                 <Modal.Body>
                     <form
@@ -84,13 +86,23 @@ const AddFieldagentModal = ({ show, handleClose }: Props): JSX.Element => {
                                 </div>
 
                             </div>
-                            <button className="btn btn-lg btn-primary col-md-12 mb-2" type="submit">
-                                Submit
-                            </button>
-                            <Button
-                                variant="secondary"
-                                className="btn btn-lg btn-secondary col-md-12 "
-                                onClick={handleClose}>Close</Button>
+                            <div className="col-md-12">
+                                <div className="row mt-3">
+                                    <div className="col-md-6">
+                                        <button className="btn btn-lg btn-primary col-md-12" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <Button
+                                            variant="secondary"
+                                            className="btn btn-lg btn-secondary col-md-12"
+                                            onClick={handleClose}>
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </Modal.Body>

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FetchAllFieldAgentForPermissionRequest, UpdateFieldAgentsPermissionsRequest } from "../../store/reducers/FieldAgentSlice";
 import { Button } from "react-bootstrap";
 import AgentPermissionModal from "../../components/AgentPermissionModal";
+import { BsCheckLg, BsXLg   } from "react-icons/bs";
 
 const AgentPermission = (): JSX.Element => {
     const providerId = localStorage.getItem("_id") || ""
@@ -46,14 +47,17 @@ const AgentPermission = (): JSX.Element => {
                                 </div>
                             </div>
                             <div className="table-responsive">
-                                <table className="table table-hover mb-0">
+                                <table 
+                                className="table mb-0"
+                                // className="table table-striped dt-responsive nowrap w-100"
+                                >
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Add New Agent</th>
-                                            <th>Accept Service Request</th>
-                                            <th>Assign Job</th>
-                                            <th>Action</th>
+                                            <th className="text-center">Add New Agent</th>
+                                            <th className="text-center">Accept Service Request</th>
+                                            <th className="text-center">Assign Job</th>
+                                            <th className="text-center">Action</th>
                                         </tr>
 
                                     </thead>
@@ -63,8 +67,11 @@ const AgentPermission = (): JSX.Element => {
                                                 <td>
                                                     {data?.firstName} {data.lastName}
                                                 </td>
-                                                <td>
-                                                    <p className="c_radio"
+                                                <td align="center">
+                                                    {
+                                                        Boolean(data?.agentPermission[0]?.fieldAgentManagement)?<BsCheckLg color="#62C0BF" size={"30px"}/> : <BsXLg  color="red" size={"30px"}/>
+                                                    }
+                                                    {/* <p className="c_radio"
                                                         style={{ pointerEvents: "none", cursor: 'default' }}
                                                     >
                                                         <input className="re_radio"
@@ -75,10 +82,11 @@ const AgentPermission = (): JSX.Element => {
                                                             disabled
                                                         />
                                                         <label htmlFor={data?._id + '1'}></label>
-                                                    </p>
+                                                    </p> */}
+                                                   {/* {Boolean(data?.agentPermission[0]?.fieldAgentManagement ? <BsCheckLg color="#62C0BF" size={"30px"}/> : <BsFillFileExcelFill />} */}
                                                 </td>
-                                                <td>
-                                                    <p className="c_radio"
+                                                <td align="center">
+                                                    {/* <p className="c_radio"
                                                         style={{ pointerEvents: "none", cursor: 'default' }}
                                                     >
                                                         <input className="re_radio"
@@ -89,10 +97,13 @@ const AgentPermission = (): JSX.Element => {
                                                             disabled
                                                         />
                                                         <label htmlFor={data?._id + '2'}></label>
-                                                    </p>
+                                                    </p> */}
+                                                    {
+                                                        Boolean(data?.agentPermission[0]?.acceptRequest)?<BsCheckLg color="#62C0BF" size={"30px"}/> : <BsXLg color="red" size={"30px"} />
+                                                    }
                                                 </td>
-                                                <td>
-                                                    <p className="c_radio"
+                                                <td align="center">
+                                                    {/* <p className="c_radio"
                                                         style={{ pointerEvents: "none", cursor: 'default' }}
                                                     >
                                                         <input className="re_radio"
@@ -103,10 +114,13 @@ const AgentPermission = (): JSX.Element => {
                                                             disabled
                                                         />
                                                         <label htmlFor={data?._id + '3'}></label>
-                                                    </p>
+                                                    </p> */}
+                                                    {
+                                                        Boolean(data?.agentPermission[0]?.assignJob)?<BsCheckLg color="#62C0BF" size={"30px"}/> : <BsXLg  color="red" size={"30px"} />
+                                                    }
                                                 </td>
-                                                <td>
-                                                    <Button variant="outline-info"
+                                                <td align="center">
+                                                    <Button variant="outline-info" style={{color:'#135174', borderColor:'#135174'}}
                                                         onClick={() => onUpdate(data)}
                                                     >
                                                         Update

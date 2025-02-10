@@ -7,6 +7,7 @@ import watchFieldAgent from "./sagas/FieldAgentSaga";
 import watchJobRequest from "./sagas/JobSaga";
 import watchDashboard from "./sagas/DashbordSaga"
 import watchProfile from "./sagas/ProfileSaga";
+import watchIp from "./sagas/Ipsaga";
 
 export default function* rootSaga() {
     yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga() {
         watchJobRequest(),
         watchDashboard(),
         watchProfile(),
+        watchIp(),
     ])
 }

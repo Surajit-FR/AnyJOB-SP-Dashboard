@@ -1,13 +1,19 @@
+import { useSelector } from "react-redux";
 import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import Topbar from "./components/common/Topbar";
 // import PreLoader from "./components/PreLoader";
 import AllRoutes from "./routes/AllRoutes";
+import { RootState } from "./store/Store";
+import { isjobsloading } from "./utils/loading";
+import PreLoader from "./components/PreLoader";
 
 const App = (): JSX.Element => {
+  const job =  useSelector((state: RootState)=>state.jobSlice)
+  const isLoadingIn = isjobsloading(job)
   return (
     <>
-      {/* <PreLoader /> */}
+      <PreLoader loading={isLoadingIn}/>
 
       <div id="wrapper">
         <Navbar />
