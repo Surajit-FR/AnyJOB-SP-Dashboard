@@ -15,7 +15,7 @@ const JobDetailsModal = ({ show, handleClose, data }: Props) => {
                     <ModalTitle>
                         Job Details
                     </ModalTitle>
-                    <BsXLg onClick={()=>{handleClose()}} style={{cursor:"pointer"}} size={25}/>
+                    <BsXLg onClick={() => { handleClose() }} style={{ cursor: "pointer" }} size={25} />
                 </ModalHeader>
                 <Modal.Body>
                     <form>
@@ -38,7 +38,7 @@ const JobDetailsModal = ({ show, handleClose, data }: Props) => {
                                     <div className="col-md-4">
                                         <div className="add_check">
                                             <h4>Time Slot</h4>
-                                            <h6>{`${data[0]?.bookedTimeSlot[0]?.startTime} - ${data[0]?.bookedTimeSlot[0]?.endTime}`}</h6>
+                                            <h6>{`${new Date(data[0]?.bookedTimeSlot[0]?.startTime).toLocaleTimeString([], { timeStyle: 'short' })} - ${new Date(data[0]?.bookedTimeSlot[0]?.endTime).toLocaleTimeString([], { timeStyle: 'short' })}`}</h6>
                                         </div>
                                     </div>
                                 )
