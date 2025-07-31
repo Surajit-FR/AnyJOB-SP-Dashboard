@@ -93,11 +93,11 @@ const Profile = (): JSX.Element => {
                                 <div className="col-md-4">
                                     <div className="profiles_it">
                                         <div className="profiles_img">
-                                            <img src={userData?.avatar ? userData.avatar : "https://placehold.co/500x300"} alt="" />
+                                            <img src={userData?.avatar ? userData.avatar : "/assets/images/userLarge.jpg"} alt="" width="500px" height="300px"/>
                                         </div>
                                         <div className="profiles_text">
                                             <div className="bd_ft">
-                                                <img src={userData?.avatar ? userData.avatar : "https://placehold.co/170x150"} alt="" />
+                                                <img src={userData?.avatar ? userData.avatar : "/assets/images/userLarge.jpg"} alt="" />
                                             </div>
                                             <div className="d_showd">
                                                 <div className="text-center vg">

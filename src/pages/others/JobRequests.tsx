@@ -173,7 +173,7 @@ const JobRequests = (): JSX.Element => {
                                                         {stateServiceData && stateServiceData.length > 0 && stateServiceData?.map((service, index) => (
                                                             <tr key={index}>
                                                                 <td>
-                                                                    <img className="p_img" src={service?.userAvtar ? service?.userAvtar : "https://placehold.co/50x50"} alt="" />
+                                                                    <img className="p_img" src={service?.userAvtar ? service?.userAvtar : "/assets/images/userSmall.png"} alt="" />
                                                                 </td>
                                                                 <td>{service?.customerName ? service?.customerName : "N/A"}</td>
                                                                 <td>{service?.categoryName ? service?.categoryName : "N/A"}</td>

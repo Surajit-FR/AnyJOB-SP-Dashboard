@@ -138,7 +138,7 @@ const Dashboard = (): JSX.Element => {
                                                 <tr key={data._id}>
                                                     <td>{index + 1}</td>
                                                     <td>
-                                                        <img className="p_img" src={data.userAvtar ? data.userAvtar : "https://placehold.co/50x50"} alt="" />
+                                                        <img className="p_img" src={data.userAvtar ? data.userAvtar : "/assets/images/userSmall.png"} alt="" />
                                                     </td>
                                                     <td>{data.customerName}</td>
                                                     <td>{data.categoryName}</td>
@@ -192,7 +192,7 @@ const Dashboard = (): JSX.Element => {
                                                 <tr key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>
-                                                        <img className="p_img" src={service?.customerAvatar ? service?.customerAvatar : "https://placehold.co/50x50"} alt="" />
+                                                        <img className="p_img" src={service?.customerAvatar ? service?.customerAvatar : "/assets/images/userSmall.png"} alt="" />
                                                     </td>
                                                     <td>{service?.customerFirstName ? service?.customerFirstName : "N/A"} {service?.customerLastName ? service?.customerLastName : ""}</td>
                                                     <td>{service?.categoryName ? service?.categoryName : "N/A"}</td>

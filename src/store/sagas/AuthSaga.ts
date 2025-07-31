@@ -34,9 +34,7 @@ export function* logoutSaga({ payload, type }: { payload: { navigate: NavigateFu
     try {
         const resp = yield call(LOGOUT);
         const result: ApiResponse<UserData> = resp?.data;
-        if (result?.success) {
-            payload.navigate("/logout-page");
-            window.localStorage.removeItem("accessToken");
+        window.localStorage.removeItem("accessToken");
             window.localStorage.removeItem("refreshToken");
             window.localStorage.removeItem("_id");
             window.localStorage.removeItem("role");
@@ -44,6 +42,17 @@ export function* logoutSaga({ payload, type }: { payload: { navigate: NavigateFu
             sessionStorage.clear()
             showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
             socket.disconnect()
+            payload.navigate("/logout-page");
+        if (result?.success) {
+            // payload.navigate("/logout-page");
+            // window.localStorage.removeItem("accessToken");
+            // window.localStorage.removeItem("refreshToken");
+            // window.localStorage.removeItem("_id");
+            // window.localStorage.removeItem("role");
+            // localStorage.clear()
+            // sessionStorage.clear()
+            // showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
+            // socket.disconnect()
             yield put(AuthLogoutSuccess(result));
         };
     } catch (error: any) {

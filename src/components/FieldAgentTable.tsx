@@ -16,7 +16,7 @@ interface Props {
     data: IteamMembers[]
 }
 interface FieldAgentData {
-    agentAvatar: string
+    avatar: string
     email: string
     firstName: string
     isEngaged: boolean
@@ -30,7 +30,7 @@ const FieldAgentsTable = ({ data }: Props): JSX.Element => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [fieldAgentId, setFieldAgentId] = useState<FieldAgentData>({
-        agentAvatar: "",
+        avatar: "",
         email: "",
         firstName: "",
         isEngaged: false,
@@ -83,16 +83,16 @@ const FieldAgentsTable = ({ data }: Props): JSX.Element => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data?.map((data, index) => (
-                                            <tr key={data._id}>
+                                        {data && data.length>0 &&data?.map((data, index) => (
+                                            <tr key={index}>
                                                 <td>
-                                                    <img className="p_img" src={data?.agentAvatar? data?.agentAvatar :"https://placehold.co/50x50"} alt="" />
+                                                    <img className="p_img" src={data?.avatar ? data?.avatar :"/assets/images/userSmall.png"} alt="" />
                                                 </td>
-                                                <td>{data.firstName} {data.lastName}</td>
-                                                <td>{data.email} </td>
-                                                <td>{data.phone}</td>
+                                                <td>{data?.firstName} {data?.lastName}</td>
+                                                <td>{data?.email} </td>
+                                                <td>{data?.phone}</td>
                                                 <td>
-                                                    {data.userType.toLocaleLowerCase() === "teamlead" ? <Button 
+                                                    {data?.userType?.toLocaleLowerCase() === "teamlead" ? <Button 
                                                     // className="add_er cancel"
                                                     disabled
                                                     size="lg"

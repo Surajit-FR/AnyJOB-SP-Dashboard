@@ -230,7 +230,7 @@ const JobQueue = (): JSX.Element => {
                                                     {trimmedData?.map((service: any, index: number) => (
                                                         <tr key={index}>
                                                             <td>
-                                                                <img className="p_img" src={service?.customerAvatar ? service?.customerAvatar : "https://placehold.co/50x50"} alt="" />
+                                                                <img className="p_img" src={service?.customerAvatar ? service?.customerAvatar : "/assets/images/userSmall.png"} alt="" />
                                                             </td>
                                                             <td>{service?.customerFirstName ? service?.customerFirstName : "N/A"} {service?.customerLastName ? service?.customerLastName : ""}</td>
                                                             <td>{service?.categoryName ? service?.categoryName : "N/A"}</td>

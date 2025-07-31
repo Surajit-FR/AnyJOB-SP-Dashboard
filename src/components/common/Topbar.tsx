@@ -38,6 +38,7 @@ const Topbar = (): JSX.Element => {
     useEffect(() => {
         dispatch(getProfileDataRequest({ id: userId }))
     }, [dispatch, userId])
+console.log({userData});
 
     return (
         <>
@@ -62,7 +63,7 @@ const Topbar = (): JSX.Element => {
                                 aria-expanded="false"
                             >
                                 <img
-                                    src={userData?.avatar?  userData?.avatar :"https://placehold.co/50x50"}
+                                    src={userData?.avatar?  userData?.avatar :"/assets/images/userSmall.png"}
                                     alt="user"
                                     className="rounded-circle"
                                 />

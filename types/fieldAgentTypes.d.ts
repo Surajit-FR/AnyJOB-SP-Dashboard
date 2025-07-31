@@ -105,7 +105,7 @@ export type IteamMembers = {
     phone: string
     userType: string
     _id: string
-    agentAvatar?: string
+    avatar?: string
     isEngaged?: boolean
 }
 export type TCategoryAPIResponse = {

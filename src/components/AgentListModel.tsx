@@ -33,7 +33,7 @@ const AgentListModel = ({ show, handleClose, data , getFieldAgentId, }: AgentMod
                                 {data?.map((agent, index) => (
                                     <ul className="patrick_active1" key={agent._id}>
                                         <li className="culhane_img">
-                                            <img className="" src={agent.agentAvatar ? agent.agentAvatar : "https://placehold.co/50x50"} alt="" />
+                                            <img className="" src={agent.avatar ? agent.avatar : "/assets/images/userSmall.png"} alt="" />
                                         </li>
                                         <li className="culhane_text" style={{ width: "70%" }}>
                                             <h4>{agent.firstName} {agent.lastName}</h4>
