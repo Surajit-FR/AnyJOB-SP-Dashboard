@@ -155,7 +155,7 @@ const JobQueue = (): JSX.Element => {
     return (
         <>
             <AgentListModel show={showAgent} handleClose={handleAgentModalClose} data={fieldAgentData} getFieldAgentId={getFieldAgentId} agentId={agentId} />
-            <JobDetailsModal show={showDetail} handleClose={modalDetailClose} data={job} />
+            <JobDetailsModal show={showDetail} handleClose={modalDetailClose} data={job} showPersonalDetail={true}/>
             <PageHeader pageTitle="Job Status" />
 
             <div className="row mb-3 justify-content-between">

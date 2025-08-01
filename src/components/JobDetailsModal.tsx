@@ -5,9 +5,10 @@ interface Props {
     show: boolean
     handleClose: () => void
     data?: any
+    showPersonalDetail?:boolean
 }
 
-const JobDetailsModal = ({ show, handleClose, data }: Props) => {
+const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail=false }: Props) => {
     return (
         <>
             <Modal show={show}>
@@ -46,7 +47,8 @@ const JobDetailsModal = ({ show, handleClose, data }: Props) => {
 
                             <div className="col-md-12">
                                 <div className="add_check">
-                                    <ul className="sara_lit">
+                                    {showPersonalDetail? 
+                                 <ul className="sara_lit">
                                         <li>
                                             <span>
                                                 <i className="fa-regular fa-envelope"></i>
@@ -65,7 +67,9 @@ const JobDetailsModal = ({ show, handleClose, data }: Props) => {
                                             </span>
                                             {data[0]?.serviceAddress || "N/A"}
                                         </li>
-                                    </ul>
+                                    </ul>: null   
+                                }
+                                    
                                     {data[0]?.answerArray?.map((answer: any, index: number) => (
                                         <ul className="sara_lit_123" key={answer._id}>
                                             <li>
