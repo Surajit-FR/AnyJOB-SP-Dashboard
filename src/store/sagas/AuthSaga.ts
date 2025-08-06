@@ -32,29 +32,29 @@ export function* loginSaga({ payload, type }: { payload: { data: TLoginCredentia
 // logoutSaga generator function
 export function* logoutSaga({ payload, type }: { payload: { navigate: NavigateFunction }, type: string }): SagaGenerator<{ data: ApiResponse<UserData> }> {
     try {
-        const resp = yield call(LOGOUT);
-        const result: ApiResponse<UserData> = resp?.data;
+        // const resp = yield call(LOGOUT);
+        // const result: ApiResponse<UserData> = resp?.data;
         window.localStorage.removeItem("accessToken");
             window.localStorage.removeItem("refreshToken");
             window.localStorage.removeItem("_id");
             window.localStorage.removeItem("role");
             localStorage.clear()
             sessionStorage.clear()
-            showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
+            showToast({ message: 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
             socket.disconnect()
             payload.navigate("/logout-page");
-        if (result?.success) {
-            // payload.navigate("/logout-page");
-            // window.localStorage.removeItem("accessToken");
-            // window.localStorage.removeItem("refreshToken");
-            // window.localStorage.removeItem("_id");
-            // window.localStorage.removeItem("role");
-            // localStorage.clear()
-            // sessionStorage.clear()
-            // showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
-            // socket.disconnect()
-            yield put(AuthLogoutSuccess(result));
-        };
+        // if (result?.success) {
+        //     // payload.navigate("/logout-page");
+        //     // window.localStorage.removeItem("accessToken");
+        //     // window.localStorage.removeItem("refreshToken");
+        //     // window.localStorage.removeItem("_id");
+        //     // window.localStorage.removeItem("role");
+        //     // localStorage.clear()
+        //     // sessionStorage.clear()
+        //     // showToast({ message: result?.message || 'Logout Successfully.', type: 'success', durationTime: 3500, position: "top-center" });
+        //     // socket.disconnect()
+        //     yield put(AuthLogoutSuccess(result));
+        // };
     } catch (error: any) {
         yield put(AuthLogoutFailure(error?.response?.data?.message));
         showToast({ message: error?.response?.data?.message || 'Logout failed.', type: 'error', durationTime: 3500, position: "bottom-center" });
