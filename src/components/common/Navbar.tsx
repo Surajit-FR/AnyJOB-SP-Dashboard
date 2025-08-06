@@ -18,11 +18,11 @@ const navLinks = [
         icon: <RiUserSettingsLine className="mx-1" />,
         label: "Field Agents"
     },
-    {
-        path: "/agent-permission",
-        icon: <RiLockLine className="mx-1" />,
-        label: "Agent Permission"
-    },
+    // {
+    //     path: "/agent-permission",
+    //     icon: <RiLockLine className="mx-1" />,
+    //     label: "Agent Permission"
+    // },
     {
         path: "/job-requests",
         icon: <RiListCheck2 className="mx-1" />,
