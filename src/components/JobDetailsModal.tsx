@@ -1,14 +1,14 @@
 import { Button, Modal, ModalHeader, ModalTitle } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
-
+import { hrFormat } from '../utils/utility'
 interface Props {
     show: boolean
     handleClose: () => void
     data?: any
-    showPersonalDetail?:boolean
+    showPersonalDetail?: boolean
 }
 
-const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail=false }: Props) => {
+const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail = false }: Props) => {
     return (
         <>
             <Modal show={show}>
@@ -39,7 +39,7 @@ const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail=false }: 
                                     <div className="col-md-4">
                                         <div className="add_check">
                                             <h4>Time Slot</h4>
-                                            <h6>{`${new Date(data[0]?.bookedTimeSlot[0]?.startTime).toLocaleTimeString([], { timeStyle: 'short' })} - ${new Date(data[0]?.bookedTimeSlot[0]?.endTime).toLocaleTimeString([], { timeStyle: 'short' })}`}</h6>
+                                            <h6>{`${hrFormat(data[0]?.bookedTimeSlot[0].startTime)} - ${hrFormat(data[0]?.bookedTimeSlot[0].endTime)}`}</h6>
                                         </div>
                                     </div>
                                 )
@@ -47,29 +47,29 @@ const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail=false }: 
 
                             <div className="col-md-12">
                                 <div className="add_check">
-                                    {showPersonalDetail? 
-                                 <ul className="sara_lit">
-                                        <li>
-                                            <span>
-                                                <i className="fa-regular fa-envelope"></i>
-                                            </span>
-                                            {data[0]?.customerEmail}
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i className="fa-light fa-phone"></i>
-                                            </span>
-                                            {data[0]?.customerPhone || "N/A"}
-                                        </li>
-                                        <li>
-                                            <span>
-                                                <i className="fa-solid fa-location-dot"></i>
-                                            </span>
-                                            {data[0]?.serviceAddress || "N/A"}
-                                        </li>
-                                    </ul>: null   
-                                }
-                                    
+                                    {showPersonalDetail ?
+                                        <ul className="sara_lit">
+                                            <li>
+                                                <span>
+                                                    <i className="fa-regular fa-envelope"></i>
+                                                </span>
+                                                {data[0]?.customerEmail}
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <i className="fa-light fa-phone"></i>
+                                                </span>
+                                                {data[0]?.customerPhone || "N/A"}
+                                            </li>
+                                            <li>
+                                                <span>
+                                                    <i className="fa-solid fa-location-dot"></i>
+                                                </span>
+                                                {data[0]?.serviceAddress || "N/A"}
+                                            </li>
+                                        </ul> : null
+                                    }
+
                                     {data[0]?.answerArray?.map((answer: any, index: number) => (
                                         <ul className="sara_lit_123" key={answer._id}>
                                             <li>

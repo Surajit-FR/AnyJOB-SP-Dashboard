@@ -38,6 +38,7 @@ export const FETCHNEARBYSERVICEREQ = (data?: {
     if (data?.limit) {
         queryString.append('sortType', String(data.sortType));
     }
+    queryString.append("sortBy","createdAt")
     return API.get(`/service/nearby-services-request?${queryString.toString()}`);
 }
     
