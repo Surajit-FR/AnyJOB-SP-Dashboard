@@ -47,6 +47,17 @@ const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail = false }
 
                             <div className="col-md-12">
                                 <div className="add_check">
+                                    {!showPersonalDetail ?
+                                        <ul className="sara_lit">
+                                            <li>
+                                                <span>
+                                                    <i className="fa-solid fa-location-dot"></i>
+                                                </span>
+                                                {data[0]?.neighbourLandmark}
+                                            </li>
+                                        </ul>
+                                        : null
+                                    }
                                     {showPersonalDetail ?
                                         <ul className="sara_lit">
                                             <li>
