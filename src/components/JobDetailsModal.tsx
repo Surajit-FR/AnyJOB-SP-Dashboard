@@ -53,7 +53,7 @@ const JobDetailsModal = ({ show, handleClose, data, showPersonalDetail = false }
                                                 <span>
                                                     <i className="fa-solid fa-location-dot"></i>
                                                 </span>
-                                                {data[0]?.neighbourLandmark}
+                                                {data[0]?.neighbourLandmark?data[0]?.neighbourLandmark : ''} {data[0]?.landmarkPostalcode? data[0]?.landmarkPostalcode : ''}
                                             </li>
                                         </ul>
                                         : null

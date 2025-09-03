@@ -76,6 +76,8 @@ export type ServiceRequest = {
     serviceRequests?: any
     distance?: number
     serviceAddress?:string
+    landmarkPostalcode?:string
+    neighbourLandmark?:string
 };
 
 export type ServiceUpdateResponse = {

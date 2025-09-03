@@ -23,6 +23,8 @@ const headers = [
     { label: "Service Start date", key: "serviceStartDate" },
     { label: "Total Number of Ratings", key: "totalRatings" },
     { label: "Average Rating", key: "userAvgRating" },
+    { label: "Service Landmark", key: "neighbourLandmark" },
+    { label: "Service Pincode", key: "landmarkPostalcode" },
 ];
 
 const JobRequests = (): JSX.Element => {
@@ -72,7 +74,8 @@ const JobRequests = (): JSX.Element => {
                 ...item,
                 serviceStartDate: new Date(item.serviceStartDate).toLocaleDateString(),
                 distance: item.distance?.toFixed(2),
-                userAvgRating: item.userAvgRating?.toFixed(2)
+                userAvgRating: item.userAvgRating?.toFixed(2),
+                serviceAddress: '-- --'
             }
         )
         ) : []
@@ -164,7 +167,8 @@ const JobRequests = (): JSX.Element => {
                                                             <th>Customer</th>
                                                             <th>Service Req. Category</th>
                                                             <th>Service Status</th>
-                                                            <th>Service Address</th>
+                                                            <th>Service Location</th>
+                                                            <th>Pincode</th>
                                                             <th>Incentive Amount</th>
                                                             <th className="text-center">Action</th>
                                                         </tr>
@@ -178,7 +182,8 @@ const JobRequests = (): JSX.Element => {
                                                                 <td>{service?.customerName ? service?.customerName : "N/A"}</td>
                                                                 <td>{service?.categoryName ? service?.categoryName : "N/A"}</td>
                                                                 <td>{service?.requestProgress}</td>
-                                                                <td>{service?.serviceAddress ? service?.serviceAddress : "-- --"}</td>
+                                                                <td>{service?.neighbourLandmark ? service?.neighbourLandmark : "-- --"}</td>
+                                                                <td>{service?.landmarkPostalcode ? service?.landmarkPostalcode : "-- --"}</td>
                                                                 <td>{service?.incentiveAmount ? service?.incentiveAmount : "N/A"}</td>
                                                                 <td className="row m-0 justify-content-center">
                                                                     <button
