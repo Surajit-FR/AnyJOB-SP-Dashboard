@@ -28,7 +28,7 @@ export function* fetchLocation() {
         yield put(setLocation({ latitude, longitude }));
     } catch (error: any) {
         yield put(setLocationError(error.message));
-        showToast({ message: error.message, type: 'error', durationTime: 3500, position: "bottom-center" });
+        // showToast({ message: error.message, type: 'error', durationTime: 3500, position: "bottom-center" });
     }
 }
 
